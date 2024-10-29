@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\",
+  "WorkspaceRootPath": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\signup_accept.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\signup_accept.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|solutionrelative:signup_accept.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\login.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|solutionrelative:login.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\signup_request.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\signup_request.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|solutionrelative:signup_request.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\duplicate_check.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\login.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|solutionrelative:login.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\duplicate_check.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D2ECBD27-AA3C-4AF8-A7F8-F5DA34068DFC}|C_function.vcxproj|solutionrelative:duplicate_check.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -32,34 +32,35 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "signup_accept.c",
-              "DocumentMoniker": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\signup_accept.c",
+              "DocumentMoniker": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\signup_accept.c",
               "RelativeDocumentMoniker": "signup_accept.c",
-              "ToolTip": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\signup_accept.c",
+              "ToolTip": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\signup_accept.c",
               "RelativeToolTip": "signup_accept.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAABIAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-10-28T17:38:47.082Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "signup_request.c",
-              "DocumentMoniker": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\signup_request.c",
+              "DocumentMoniker": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\signup_request.c",
               "RelativeDocumentMoniker": "signup_request.c",
-              "ToolTip": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\signup_request.c",
+              "ToolTip": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\signup_request.c",
               "RelativeToolTip": "signup_request.c",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-10-28T03:39:05.479Z"
+              "WhenOpened": "2024-10-28T03:39:05.479Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "duplicate_check.c",
-              "DocumentMoniker": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\duplicate_check.c",
+              "DocumentMoniker": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\duplicate_check.c",
               "RelativeDocumentMoniker": "duplicate_check.c",
-              "ToolTip": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\duplicate_check.c",
+              "ToolTip": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\duplicate_check.c",
               "RelativeToolTip": "duplicate_check.c",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
@@ -67,16 +68,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "login.c",
-              "DocumentMoniker": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\login.c",
+              "DocumentMoniker": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\login.c",
               "RelativeDocumentMoniker": "login.c",
-              "ToolTip": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project\\C_function\\login.c",
+              "ToolTip": "C:\\Users\\korea\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uB300\uD559\\1-2\\\uD504\uB85C\uADF8\uB798\uBC0D\uBC0F\uC2E4\uC2B5\\project_git\\project\\C_function\\login.c",
               "RelativeToolTip": "login.c",
               "ViewState": "AgIAABoAAAAAAAAAAAAAACYAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-10-28T03:37:36.216Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-28T03:37:36.216Z"
             }
           ]
         }

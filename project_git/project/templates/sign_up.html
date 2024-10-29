@@ -564,7 +564,8 @@
             const birthday = `${document.getElementById('birth-year').value}-${document.getElementById('birth-month').value}-${document.getElementById('birth-day').value}`;
             let gender = document.querySelector('.gender-group button.active').textContent;
             gender = (gender === "남자") ? "m" : "w";
-            const role = document.querySelector('.radio-group .active').innerText;
+            let role = document.querySelector('.radio-group .active').innerText;
+            role = (role === "멘토") ? "mento" : "menti";
             
             // FormData 객체 생성
             const formData = new FormData();
@@ -600,6 +601,25 @@
                 console.error('Error:', error);
                 alert("회원가입 신청에 실패했습니다. 잠시 뒤 다시 신청해 주시길 바랍니다.");
             });
+            // FormData 초기화
+            formData.delete('id');
+            formData.delete('password');
+            formData.delete('role');
+            formData.delete('name');
+            formData.delete('birthday');
+            formData.delete('gender');
+            formData.delete('files');
+
+            // 폼 필드 초기화
+            document.getElementById('id-input').value = '';
+            document.getElementById('password').value = '';
+            document.querySelector('input[placeholder="이름"]').value = '';
+            document.getElementById('birth-year').value = '';
+            document.getElementById('birth-month').value = '';
+            document.getElementById('birth-day').value = '';
+            document.querySelector('.gender-group button.active').classList.remove('active');
+            document.querySelector('.radio-group .active').classList.remove('active');
+            fileInput.value = '';  // 파일 인풋 초기화
         });
         
         
