@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>회원가입</title>
+    <style>
+        body {
+            font-family: 'Gothic A1', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .larrow-signup-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1300px;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .larrow-container {
+            width: 50px;
+            padding-left: 0;
+            padding-bottom: 10px;
+            padding-right: 0;
+            cursor: pointer;
+        }
+
+        .signup-container {
+            width: 100%;
+            max-width: 1300px;
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+
+        .larrow-container img {
+            width: 60px;
+            height: auto;
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+        }
+
+        .larrow-container img:hover {
+            opacity: 1;
+        }
+
+        .left-section {
+            width: 50%;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .header h1 {
+            font-weight: 900;
+            font-size: 35px;
+            margin: 0;
+        }
+
+        .left-section .radio-group {
+            display: flex;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 20px;
+        }
+
+        .left-section .radio-group label {
+            margin-right: 20px;
+            font-weight: 700;
+            font-size: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .left-section .radio-group .active {
+            color: #fbbd08; 
+        }
+
+        .left-section .radio-group label:hover {
+            color: #fbbd08;
+            transition: 0.3s;
+        }
+
+        .id_duplication {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 0px;
+        }
+
+        .id_duplication input[type="text"] {
+            width: 60%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .id_duplication button {
+            width: 30%;
+            height: 50px;
+            margin-top: 10px;
+            margin-left: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .left-section input[type="password"],
+        .left-section input[type="text"] { 
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .birth-label {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .birth-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .birth-group input[type="number"] {
+            width: 30%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .password-warning {
+            color: red;
+            font-size: 15px;
+            display: none;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+
+        .left-section button {
+            padding: 15px 15px;
+            background-color: #FEE99C;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .left-section button:hover {
+            background-color: #bfb89f;
+        }
+
+        .gender-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .gender-group button {
+            width: 47%;
+            background-color: #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .gender-group button.active {
+            background-color: #FEE99C;
+        }
+
+        .gender-group button:hover {
+            background-color: #FEE99C;
+        }
+
+        .right-section {
+            width: 43%;
+            text-align: left;
+        }
+
+        .right-section h2 {
+            margin-top: 15px;
+            font-size: 35px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .right-section p {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .right-section button {
+            padding: 15px 30px;
+            background-color: #FEE99C;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+        }
+
+        .right-section button:hover {
+            background-color: #bfb89f;
+        }
+
+        .files {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .files a {
+            text-decoration: underline;
+            color: #565657;
+            margin-right: 20px;
+        }
+
+        .files button {
+            padding: 3px 7px !important;
+            font-size: 15px !important;
+            background-color: #b9b9b9 !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 5px !important;
+            cursor: pointer !important;
+            transition: background-color 0.3s ease !important;
+        }
+
+        .files button:hover {
+            background-color: #909090 !important;
+        }
+
+        /* 스크롤이 가능한 파일 업로드 링크 컨테이너 */
+        #file-link-container {
+            height: 200px; /* 최대 높이 설정 */
+            overflow-y: scroll; /* 세로 스크롤 활성화 */
+            border: 1px solid #ddd; /* 테두리 추가 */
+            padding: 10px; /* 내부 여백 추가 */
+            margin-top: 20px; /* 위쪽 여백 추가 */
+        }
+
+        #signup-submit-button {
+            padding: 15px 30px;
+            background-color: #FEE99C;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+            width: 80%;
+            margin-top: 80px;
+        }
+
+        #signup-submit-button:hover {
+            background-color: #bfb89f;
+        }
+    </style>
+</head>
+<body>
+    <div class="larrow-signup-container">
+        <div class="larrow-container">
+            <img src="/static/larrow.png" alt="뒤로가기">
+        </div>
+
+        <div class="signup-container">
+            <div class="left-section">
+                <div class="header">
+                    <img src="/static/logo2.png" alt="로고">
+                    <h1>회원가입</h1>
+                </div>
+
+                <div class="radio-group">
+                    <label id="mentee-label" class="mentee active">멘티</label>
+                    <label id="mentor-label" class="mentor">멘토</label>
+                </div>
+
+                <div class="id_duplication">
+                    <input type="text" id="id-input" placeholder="아이디">
+                    <button id="duplicate-check-button">중복 확인</button>
+                </div>
+
+                <input type="password" id="password" placeholder="비밀번호">
+                <input type="password" id="password-confirm" placeholder="비밀번호 확인">
+                <div id="password-warning" class="password-warning">비밀번호가 일치하지 않습니다!</div>
+                <input type="text" placeholder="이름">
+
+                <div class="birth-label">생년월일</div>
+                
+                <div class="birth-group">
+                    <input type="number" id="birth-year" placeholder="연" min="1900" max="2100">
+                    <input type="number" id="birth-month" placeholder="월" min="1" max="12">
+                    <input type="number" id="birth-day" placeholder="일" min="1" max="31">
+                </div>
+
+                <div class="gender-group">
+                    <button id="male-button" class="active">남자</button>
+                    <button id="female-button">여자</button>
+                </div>
+            </div>
+
+            <div class="right-section" id="right-section">
+                <h2>학적 확인</h2>
+                <p>학적 정보를 인증할 수 있는 파일을 올려주세요!<br>
+                ex) 학생증, 재학 증명서, 학교 포털사이트 로그인 화면 등</p>
+                <div class="button-container">
+                    <button id="upload-button">파일 올리기</button>
+                    <input type="file" id="file-upload" style="display:none;" multiple> <!-- multiple 속성 추가 -->
+                </div>
+                <div id="file-link-container"></div>
+
+                <div class="button-container">
+                    <button id="signup-submit-button">회원가입 신청</button>
+                </div>
+            </div>        
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.larrow-container').addEventListener('click', function() {
+            window.location.href = 'login.html';
+        });
+
+        document.getElementById('mentee-label').addEventListener('click', function() {
+            document.getElementById('mentee-label').classList.add('active');
+            document.getElementById('mentor-label').classList.remove('active');
+            
+            resetFileUpload(); // 파일 업로드 초기화
+            
+            const rightSection = document.getElementById('right-section');
+            rightSection.innerHTML = `
+                <h2>학적 확인</h2>
+                <p>학적 정보를 인증할 수 있는 파일을 올려주세요!<br>
+                ex) 학생증, 재학 증명서, 학교 포털사이트 로그인 화면 등</p>
+                <div class="button-container">
+                    <button id="upload-button">파일 올리기</button>
+                    <input type="file" id="file-upload" style="display:none;" multiple>
+                </div>
+                <div id="file-link-container"></div>
+                <div class="button-container">
+                    <button id="signup-submit-button">회원가입 신청</button>
+                </div>
+            `;
+            bindFileUploadEvents();
+        });
+
+        document.getElementById('mentor-label').addEventListener('click', function() {
+            document.getElementById('mentor-label').classList.add('active');
+            document.getElementById('mentee-label').classList.remove('active');
+            
+            resetFileUpload(); // 파일 업로드 초기화
+            
+            const rightSection = document.getElementById('right-section');
+            rightSection.innerHTML = `
+                <h2>멘토 정보</h2>
+                <p>멘토로 활동하기 위해 관련 정보를 올려주세요!<br>
+                ex) 자격증, 포트폴리오 등</p>
+                <div class="button-container">
+                    <button id="upload-button">파일 올리기</button>
+                    <input type="file" id="file-upload" style="display:none;" multiple>
+                </div>
+                <div id="file-link-container"></div>
+                <div class="button-container">
+                    <button id="signup-submit-button">회원가입 신청</button>
+                </div>
+            `;
+            bindFileUploadEvents();
+        });
+
+        document.getElementById('male-button').addEventListener('click', function() {
+            document.getElementById('male-button').classList.add('active');
+            document.getElementById('female-button').classList.remove('active');
+        });
+
+        document.getElementById('female-button').addEventListener('click', function() {
+            document.getElementById('female-button').classList.add('active');
+            document.getElementById('male-button').classList.remove('active');
+        });
+
+        document.getElementById('duplicate-check-button').addEventListener('click', function() {
+            var idInput = document.getElementById('id-input');
+            if (!idInput.value) {
+                idInput.style.borderColor = 'red';
+            } else {
+                idInput.style.borderColor = '#ddd';
+            }
+        });
+
+        document.getElementById('password-confirm').addEventListener('input', function() {
+            var password = document.getElementById('password').value;
+            var confirm = document.getElementById('password-confirm').value;
+            var warning = document.getElementById('password-warning');
+
+            if (password !== confirm) {
+                document.getElementById('password-confirm').style.borderColor = 'red';
+                warning.style.display = 'block';
+            } else {
+                document.getElementById('password-confirm').style.borderColor = '#ddd';
+                warning.style.display = 'none';
+            }
+        });
+
+        document.getElementById('birth-year').addEventListener('input', validateDateInput);
+        document.getElementById('birth-month').addEventListener('input', validateDateInput);
+        document.getElementById('birth-day').addEventListener('input', validateDateInput);
+
+        function validateDateInput() {
+            const year = parseInt(document.getElementById('birth-year').value);
+            const month = parseInt(document.getElementById('birth-month').value);
+            const day = parseInt(document.getElementById('birth-day').value);
+
+            if (year < 1900 || year > 2100 || isNaN(year)) {
+                document.getElementById('birth-year').style.borderColor = 'red';
+            } else {
+                document.getElementById('birth-year').style.borderColor = '#ddd';
+            }
+
+            if (month < 1 || month > 12 || isNaN(month)) {
+                document.getElementById('birth-month').style.borderColor = 'red';
+            } else {
+                document.getElementById('birth-month').style.borderColor = '#ddd';
+            }
+
+            const daysInMonth = new Date(year, month, 0).getDate();
+            if (day < 1 || day > daysInMonth || isNaN(day)) {
+                document.getElementById('birth-day').style.borderColor = 'red';
+            } else {
+                document.getElementById('birth-day').style.borderColor = '#ddd';
+            }
+        }
+
+        const uploadedFiles = new Set();
+
+        function bindFileUploadEvents() {
+            document.getElementById('upload-button').addEventListener('click', function() {
+                document.getElementById('file-upload').click();
+            });
+
+            document.getElementById('file-upload').addEventListener('change', function(event) {
+                const files = event.target.files;
+                const linkContainer = document.getElementById('file-link-container');
+
+                for (let i = 0; i < files.length; i++) {
+                    const fileName = files[i].name;
+
+                    // 이미 업로드된 파일명이 존재하는지 확인
+                    if (uploadedFiles.has(fileName)) {
+                        alert(`이미 업로드된 파일입니다: ${fileName}`);
+                        continue; // 중복된 파일은 추가하지 않음
+                    }
+
+                    // 파일명을 Set에 추가하여 중복 방지
+                    uploadedFiles.add(fileName);
+
+                    const fileRow = document.createElement('div');
+                    fileRow.className = 'files';
+
+                    const fileLink = document.createElement('a');
+                    fileLink.href = URL.createObjectURL(files[i]);
+                    fileLink.download = fileName;
+                    fileLink.textContent = fileName;
+
+                    const cancelButton = document.createElement('button');
+                    cancelButton.textContent = '업로드 취소';
+
+                    cancelButton.addEventListener('click', function() {
+                        fileRow.remove(); // 해당 파일 행 삭제
+                        uploadedFiles.delete(fileName); // Set에서 파일명 제거
+                    });
+
+                    fileRow.appendChild(fileLink);
+                    fileRow.appendChild(cancelButton);
+                    linkContainer.appendChild(fileRow);
+                }
+            });
+        }
+
+        function resetFileUpload() {
+            document.getElementById('file-link-container').innerHTML = ''; // 파일 링크 삭제
+            uploadedFiles.clear(); // 업로드된 파일 목록 초기화
+        }
+
+        bindFileUploadEvents(); // 초기 바인딩
+
+        document.getElementById('signup-submit-button').addEventListener('click', function() {
+            // 아이디, 비밀번호, 이름, 성별 데이터 수집
+            const id = document.getElementById('id-input').value;
+            const password = document.getElementById('password').value;
+            const name = document.querySelector('input[placeholder="이름"]').value;
+            const gender = document.querySelector('.gender-group .active').innerText;
+        
+            // AJAX 요청으로 데이터를 서버로 전송
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/submit_signup', true);
+            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert('회원가입 완료');
+                }
+            };
+            xhr.send(JSON.stringify({
+                id: id,
+                password: password,
+                name: name,
+                gender: gender
+            }));
+        });
+        
+    </script>
+</body>
+</html>
