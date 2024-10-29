@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HobbyHive Layout</title>
+    <style>
+        /* 기본 스타일 */
+        body 
+        {
+            margin: 0;
+            font-family: 'Gothic A1', sans-serif;
+            background-color: #f9f9f9;
+            overflow: hidden;
+        }
+
+        .main 
+        {
+            display: flex;
+            height: 100vh;
+        }
+        
+        /* 사이드바 */
+        .sidebar 
+        {
+            width: 20%;
+            padding: 15px;
+            border-right: 1px solid #ddd;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #f3f0e9;
+        }
+        
+        /* 로고 */
+        .logo 
+        {
+            display: flex;
+            align-items: center;
+            margin-bottom: 50px;
+            gap: 10px;
+        }
+
+        .logo img {width: 50px;}
+        
+        /* 네비게이션 버튼 */
+        .nav-buttons button 
+        {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            padding: 10px;
+            text-align: left;
+            transition: color 0.3s;
+            color: #333;
+            width: 100%;
+        }
+
+        .nav-buttons button.active {color: #fbbd08;}
+
+        /* 검색창 */
+        .search-container 
+        {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-input 
+        {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .search-btn 
+        {
+            padding: 8px;
+            border: none;
+            background-color: #FEE99C;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #333;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .search-btn:hover {background-color: #fbbd08;}
+        
+        /* 로그인 버튼 */
+        .login-btn 
+        {
+            background-color: #FEE99C;
+            border: none;
+            padding: 10px 10px;
+            margin-bottom: 40px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #333;
+            width: 20%;
+            text-align: center;
+        }
+
+        .login-btn:hover {background-color: #fbbd08;}
+
+        .content-wrapper 
+        {
+            width: 80%;
+            margin-left: 20%;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 50px 100px;
+        }
+        
+        /* 클래스 그리드 */
+        .grid-container
+        {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4열 그리드 */
+            gap: 20px;
+            width: 100%;
+            align-items: start;
+            margin-bottom: 150px;
+        }
+
+        .grid-item
+        {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .grid-item:hover
+        {
+            background-color: #FEE99C;
+            transform: scale(1.05);
+        }
+
+        .grid-item img
+        {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .grid-title 
+        {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* 커뮤니티 이미지 콘텐츠 */
+        .content 
+        {
+            width: 80%;
+            padding-left: 130px;
+            padding-right: 200px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            margin-bottom: 150px;
+        }
+
+        .content img 
+        {
+            width: 100%;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .content img:hover {transform: scale(1.05);}
+
+        /* 페이지별 섹션 숨기기 */
+        .section {display: none;}
+
+        .section.active {display: block;}
+    </style>
+</head>
+<body>
+    <!-- 메인 레이아웃 -->
+    <div class="main">
+        <!-- 사이드바 -->
+        <div class="sidebar">
+            <div>
+                <!-- 로고 -->
+                <div class="logo">
+                    <img src="C:\우재연\SSU\2024 1-2\프로그래밍및실습2\HOBBYHIVE 로고 완성본.png" alt="HobbyHive Logo">
+                    <span style="font-size: 24px; font-weight: bold;">HOBBYHIVE</span>
+                </div>
+
+                <!-- 검색창 -->
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="관심 있는 취미를 검색하세요.">
+                    <button class="search-btn" onclick="performSearch()">검색</button>
+                </div>
+                
+                <!-- 네비게이션 버튼 -->
+                <div class="nav-buttons">
+                    <button id="class-btn" onclick="switchSection('class')" style="font-size: 19px">클래스</button>
+                    <button id="community-btn" onclick="switchSection('community')" style="font-size: 19px">커뮤니티</button>
+                    <button id="mypage-btn" onclick="switchSection('mypage')" style="font-size: 19px">마이페이지</button>
+                </div>
+            </div>
+
+            <!-- 로그인 버튼 -->
+            <a href="login.html" class="login-btn">로그인</a>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- 첫 화면-->
+            <div id="welcome" class="section active">
+                <h1>환영합니다!</h1>
+                <p>HobbyHive에 오신 것을 환영합니다.</p>
+            </div>
+
+            <!-- 클래스 섹션 -->
+            <div id="class" class="section active">
+                <h1>클래스</h1>
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <a href="page1.html"><img src="https://via.placeholder.com/150" alt="클래스 1"></a>
+                        <p class="grid-title">클래스 1</p>
+                    </div>
+                    <div class="grid-item">
+                        <a href="page2.html"><img src="https://via.placeholder.com/150" alt="클래스 2"></a>
+                        <p class="grid-title">클래스 2</p>
+                    </div>
+                    <div class="grid-item">
+                        <a href="page3.html"><img src="https://via.placeholder.com/150" alt="클래스 3"></a>
+                        <p class="grid-title">클래스 3</p>
+                    </div>
+                    <div class="grid-item">
+                        <a href="page4.html"><img src="https://via.placeholder.com/150" alt="클래스 4"></a>
+                        <p class="grid-title">클래스 4</p>
+                    </div>
+                    <div class="grid-item">
+                        <a href="page1.html"><img src="https://via.placeholder.com/150" alt="클래스 1"></a>
+                        <p class="grid-title">클래스 5</p>
+                    </div>
+                    <div class="grid-item">
+                        <a href="page2.html"><img src="https://via.placeholder.com/150" alt="클래스 2"></a>
+                        <p class="grid-title">클래스 6</p>
+                    </div>
+                    <div class="grid-item">
+                        <a href="page3.html"><img src="https://via.placeholder.com/150" alt="클래스 3"></a>
+                        <p class="grid-title">클래스 7</p>
+                    </div>
+                    <div class="grid-item">
+                        <a href="page4.html"><img src="https://via.placeholder.com/150" alt="클래스 4"></a>
+                        <p class="grid-title">클래스 8</p>
+                    </div>
+                    <div class="grid-item">
+                        <a href="page1.html"><img src="https://via.placeholder.com/150" alt="클래스 1"></a>
+                        <p class="grid-title">클래스 9</p>
+                    </div>
+                    <div class="grid-item">
+                        <a href="page2.html"><img src="https://via.placeholder.com/150" alt="클래스 2"></a>
+                        <p class="grid-title">클래스 10</p>
+                    </div>
+                    <div class="grid-item">
+                        <a href="page3.html"><img src="https://via.placeholder.com/150" alt="클래스 3"></a>
+                        <p class="grid-title">클래스 11</p>
+                    </div>
+                    <div class="grid-item">
+                        <a href="page4.html"><img src="https://via.placeholder.com/150" alt="클래스 4"></a>
+                        <p class="grid-title">클래스 12</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 커뮤니티 섹션 -->
+            <div id="community" class="section">
+                <div class="content">
+                    <a href="page1.html"><img src="https://via.placeholder.com/300x300" alt="이미지 1"></a>
+                    <a href="page2.html"><img src="https://via.placeholder.com/300x300" alt="이미지 2"></a>
+                    <a href="page3.html"><img src="https://via.placeholder.com/300x300" alt="이미지 3"></a>
+                    <a href="page4.html"><img src="https://via.placeholder.com/300x300" alt="이미지 4"></a>
+                    <a href="page5.html"><img src="https://via.placeholder.com/300x300" alt="이미지 5"></a>
+                    <a href="page6.html"><img src="https://via.placeholder.com/300x300" alt="이미지 6"></a>
+                    <a href="page7.html"><img src="https://via.placeholder.com/300x300" alt="이미지 7"></a>
+                    <a href="page8.html"><img src="https://via.placeholder.com/300x300" alt="이미지 8"></a>
+                    <a href="page5.html"><img src="https://via.placeholder.com/300x300" alt="이미지 9"></a>
+                    <a href="page6.html"><img src="https://via.placeholder.com/300x300" alt="이미지 10"></a>
+                    <a href="page7.html"><img src="https://via.placeholder.com/300x300" alt="이미지 11"></a>
+                    <a href="page8.html"><img src="https://via.placeholder.com/300x300" alt="이미지 12"></a>
+                </div>
+            </div>
+
+            <!-- 마이페이지 섹션 -->
+            <div id="mypage" class="section">
+                <h1>마이페이지</h1>
+                <p>사용자 정보를 관리하는 공간입니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript: 버튼 활성화, 검색 기능 -->
+    <script>
+        function switchSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            document.getElementById(sectionId).classList.add('active');
+
+            const buttons = document.querySelectorAll('.nav-buttons button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            const button = document.getElementById(sectionId + '-btn');
+            if (button) button.classList.add('active');
+        }
+        
+        function performSearch() {
+        const query = document.querySelector('.search-input').value;
+        if (query) 
+            alert(`'${query}' 검색 결과입니다.`);
+        else 
+            alert('검색어를 입력하세요.');
+        }
+    </script>
+</body>
+</html>
