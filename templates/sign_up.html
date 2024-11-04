@@ -351,19 +351,21 @@
             </div>
 
             <div class="right-section" id="right-section">
-                <h2>학적 확인</h2>
-                <p>학적 정보를 인증할 수 있는 파일을 올려주세요!<br>
-                ex) 학생증, 재학 증명서, 학교 포털사이트 로그인 화면 등</p>
-                <div class="button-container">
-                    <button id="upload-button">파일 올리기</button>
-                    <input type="file" id="file-upload" style="display:none;" multiple> <!-- multiple 속성 추가 -->
-                </div>
-                <div id="file-link-container"></div>
+    <h2 id="right-section-title">학적 확인</h2>
+    <p id="right-section-description">
+        학적 정보를 인증할 수 있는 파일을 올려주세요!<br>
+        ex) 학생증, 재학 증명서, 학교 포털사이트 로그인 화면 등
+    </p>
+    <div class="button-container">
+        <button id="upload-button">파일 올리기</button>
+        <input type="file" id="file-upload" style="display:none;" multiple>
+    </div>
+    <div id="file-link-container"></div>
 
-                <div class="button-container">
-                    <button id="signup-submit-button">회원가입 신청</button>
-                </div>
-            </div>        
+    <div class="button-container">
+        <button id="signup-submit-button">회원가입 신청</button>
+    </div>
+</div>
         </div>
     </div>
 
@@ -378,45 +380,23 @@
             document.getElementById('mentor-label').classList.remove('active');
             
             resetFileUpload(); // 파일 업로드 초기화
-            
-            const rightSection = document.getElementById('right-section');
-            rightSection.innerHTML = `
-                <h2>학적 확인</h2>
-                <p>학적 정보를 인증할 수 있는 파일을 올려주세요!<br>
-                ex) 학생증, 재학 증명서, 학교 포털사이트 로그인 화면 등</p>
-                <div class="button-container">
-                    <button id="upload-button">파일 올리기</button>
-                    <input type="file" id="file-upload" style="display:none;" multiple>
-                </div>
-                <div id="file-link-container"></div>
-                <div class="button-container">
-                    <button id="signup-submit-button">회원가입 신청</button>
-                </div>
-            `;
-            bindFileUploadEvents();
+        
+            // 제목, 설명, 파일 안내 등을 직접 변경
+            document.getElementById('right-section-title').textContent = '학적 확인';
+            document.getElementById('right-section-description').textContent = 
+                '학적 정보를 인증할 수 있는 파일을 올려주세요! ex) 학생증, 재학 증명서, 학교 포털사이트 로그인 화면 등';
         });
-
+        
         document.getElementById('mentor-label').addEventListener('click', function() {
             document.getElementById('mentor-label').classList.add('active');
             document.getElementById('mentee-label').classList.remove('active');
             
             resetFileUpload(); // 파일 업로드 초기화
-            
-            const rightSection = document.getElementById('right-section');
-            rightSection.innerHTML = `
-                <h2>멘토 정보</h2>
-                <p>멘토로 활동하기 위해 관련 정보를 올려주세요!<br>
-                ex) 자격증, 포트폴리오 등</p>
-                <div class="button-container">
-                    <button id="upload-button">파일 올리기</button>
-                    <input type="file" id="file-upload" style="display:none;" multiple>
-                </div>
-                <div id="file-link-container"></div>
-                <div class="button-container">
-                    <button id="signup-submit-button">회원가입 신청</button>
-                </div>
-            `;
-            bindFileUploadEvents();
+        
+            // 제목, 설명, 파일 안내 등을 직접 변경
+            document.getElementById('right-section-title').textContent = '멘토 정보';
+            document.getElementById('right-section-description').textContent = 
+                '멘토로 활동하기 위해 관련 정보를 올려주세요! ex) 자격증, 포트폴리오 등';
         });
 
         document.getElementById('male-button').addEventListener('click', function() {
@@ -556,7 +536,11 @@
 
         bindFileUploadEvents(); // 초기 바인딩
 
-        document.getElementById('signup-submit-button').addEventListener('click', function() {
+        document.getElementById('signup-submit-button').addEventListener('click', function(event) {
+            event.preventDefault();  // 기본 동작 방지
+            const button = event.target;
+            button.disabled = true;  // 중복 클릭 방지용 버튼 비활성화
+
             // 아이디, 비밀번호, 이름, 생년월일, 성별, 역할 데이터 수집
             const id = document.getElementById('id-input').value;
             const password = document.getElementById('password').value;
@@ -592,38 +576,18 @@
             .then(data => {
                 if (data.success) {
                     alert("회원가입 신청이 완료되었습니다! 2~3일 내에 처리가 완료됩니다.");
-                    window.location.href = '/';  // 회원가입 성공 시 로그인 페이지로 리다이렉트
+                    window.location.href = '/';
                 } else {
                     alert("회원가입 신청에 실패했습니다. 잠시 뒤 다시 신청해 주시길 바랍니다.");
+                    button.disabled = false;  // 실패 시 버튼 다시 활성화
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert("회원가입 신청에 실패했습니다. 잠시 뒤 다시 신청해 주시길 바랍니다.");
+                button.disabled = false;  // 실패 시 버튼 다시 활성화
             });
-            // FormData 초기화
-            formData.delete('id');
-            formData.delete('password');
-            formData.delete('role');
-            formData.delete('name');
-            formData.delete('birthday');
-            formData.delete('gender');
-            formData.delete('files');
-
-            // 폼 필드 초기화
-            document.getElementById('id-input').value = '';
-            document.getElementById('password').value = '';
-            document.querySelector('input[placeholder="이름"]').value = '';
-            document.getElementById('birth-year').value = '';
-            document.getElementById('birth-month').value = '';
-            document.getElementById('birth-day').value = '';
-            document.querySelector('.gender-group button.active').classList.remove('active');
-            document.querySelector('.radio-group .active').classList.remove('active');
-            fileInput.value = '';  // 파일 인풋 초기화
         });
-        
-        
-        
     </script>
 </body>
 </html>
