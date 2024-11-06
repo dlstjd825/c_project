@@ -97,21 +97,27 @@
                 </tr>
             </thead>
             <tbody>
-                {% for signup in signup_data if signup.role == "멘티" %}
-                <tr>
-                    <td>{{ signup.id }}</td>
-                    <td>{{ signup.apply_date }}</td>
-                    <td>
-                        <a href="{{ url_for('download_zip', user_id=signup.id) }}" class="button-link">열람</a>
-                    </td>
-                    <td>
-                        <button class="accept-button" onclick="acceptSignup('{{ signup.id }}')">수락</button>
-                    </td>
-                </tr>
-                {% endfor %}
+                {% if signup_data %}
+                    {% for signup in signup_data if signup.role == "menti" %}
+                    <tr>
+                        <td>{{ signup.id }}</td>
+                        <td>{{ signup.apply_date }}</td>
+                        <td>
+                            <a href="{{ url_for('download_zip', user_id=signup.id) }}" class="button-link">열람</a>
+                        </td>
+                        <td>
+                            <button class="accept-button" onclick="acceptSignup('{{ signup.id }}')">수락</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">승인 대기 중인 멘티가 없습니다.</td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
-
+    
         <!-- 멘토 요청 테이블 -->
         <table>
             <thead>
@@ -126,21 +132,28 @@
                 </tr>
             </thead>
             <tbody>
-                {% for signup in signup_data if signup.role == "멘토" %}
-                <tr>
-                    <td>{{ signup.id }}</td>
-                    <td>{{ signup.apply_date }}</td>
-                    <td>
-                        <a href="{{ url_for('download_zip', user_id=signup.id) }}" class="button-link">열람</a>
-                    </td>
-                    <td>
-                        <button class="accept-button" onclick="acceptSignup('{{ signup.id }}')">수락</button>
-                    </td>
-                </tr>
-                {% endfor %}
+                {% if signup_data %}
+                    {% for signup in signup_data if signup.role == "mento" %}
+                    <tr>
+                        <td>{{ signup.id }}</td>
+                        <td>{{ signup.apply_date }}</td>
+                        <td>
+                            <a href="{{ url_for('download_zip', user_id=signup.id) }}" class="button-link">열람</a>
+                        </td>
+                        <td>
+                            <button class="accept-button" onclick="acceptSignup('{{ signup.id }}')">수락</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">승인 대기 중인 멘토가 없습니다.</td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
     </div>
+    
 
     <script>
         function acceptSignup(userId) {

@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 # 세션 관리를 위한 비밀 키
-app.secret_key = '1111'
+app.secret_key = 'sdfgkljwherfsxnf212093dsr1ksdf~!'
 
 # 폴더 설정
 UPLOAD_FOLDER = 'static/uploads'  # 업로드된 파일을 저장할 폴더
@@ -77,62 +77,64 @@ def login():
 # 회원가입 화면
 @app.route('/sign_up.html', methods=['GET', 'POST'])
 def signup_page():
-    if request.method == 'POST':
-        try:
-            # 폼에서 사용자 데이터 추출
-            user_id = request.form['id']
-            user_password = request.form['password']
-            user_role = request.form['role']
-            user_name = request.form['name']
-            user_birthday = request.form['birthday']
-            user_gender = request.form['gender']
-            
-            # 업로드된 파일 저장
-            uploaded_files = []
-            for file in request.files.getlist('files'):
-                filename = secure_filename(file.filename)
-                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                file.save(file_path)
-                uploaded_files.append(file_path)
+    # sign_up.html 처음 실행시 오는 요청 'GET'실행
+    if request.method == 'GET':
+        return render_template('sign_up.html')
+    
+    # '회원가입 신청' 버튼 눌었을 때 오는 요청 'POST' 실행
+    try:
+        # 폼에서 사용자 데이터 추출
+        user_id = request.form['id']
+        user_password = request.form['password']
+        user_role = request.form['role']
+        user_name = request.form['name']
+        user_birthday = request.form['birthday']
+        user_gender = request.form['gender']
 
-            # C DLL 회원가입 함수 호출하여 txt 파일 생성 처리
-            result = c_function.signup_request(
-                user_id.encode('utf-8'), 
-                user_password.encode('utf-8'), 
-                user_role.encode('utf-8'),
-                user_name.encode('utf-8'), 
-                user_birthday.encode('utf-8'),
-                user_gender.encode('utf-8')
-            )
+        # 업로드된 파일 저장
+        uploaded_files = []
+        for file in request.files.getlist('files'):
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+            uploaded_files.append(file_path)
 
-            # ZIP 파일 생성
-            zip_filename = f"{user_id}_files.zip"
-            zip_path = os.path.join(USER_INFO_FOLDER, zip_filename)
-            with zipfile.ZipFile(zip_path, 'w') as zipf:
-                # C 함수로 생성된 txt 파일과 업로드된 파일을 zip에 추가
-                txt_file_path = os.path.join(USER_INFO_FOLDER, f"{user_id}_info.txt")
-                zipf.write(txt_file_path, os.path.basename(txt_file_path))
-                for file_path in uploaded_files:
-                    zipf.write(file_path, os.path.basename(file_path))
+        # C DLL 회원가입 함수 호출하여 txt 파일 생성 처리
+        result = c_function.signup_request(
+            user_id.encode('utf-8'), 
+            user_password.encode('utf-8'), 
+            user_role.encode('utf-8'),
+            user_name.encode('utf-8'), 
+            user_birthday.encode('utf-8'),
+            user_gender.encode('utf-8')
+        )
 
-            # 관리자 페이지에 표시할 회원가입 데이터 저장
-            signup_data.append({
-                'id': user_id,
-                'apply_date': time.strftime("%Y.%m.%d"),
-                'role': user_role,
-                'zip_path': zip_path
-            })
+        # ZIP 파일 생성
+        zip_filename = f"{user_id}_files.zip"
+        zip_path = os.path.join(USER_INFO_FOLDER, zip_filename)
+        with zipfile.ZipFile(zip_path, 'w') as zipf:
+            # C 함수로 생성된 txt 파일과 업로드된 파일을 zip에 추가
+            txt_file_path = os.path.join(USER_INFO_FOLDER, f"{user_id}_info.txt")
+            zipf.write(txt_file_path, os.path.basename(txt_file_path))
+            for file_path in uploaded_files:
+                zipf.write(file_path, os.path.basename(file_path))
 
-            if result:
-                return jsonify({"success": True})
-            else:
-                return jsonify({"success": False})
-        
-        except Exception as e:
-            print(f"오류 발생: {e}")
-            return jsonify({"success": False, "message": f"서버 오류: {str(e)}"})
-
-    return render_template('sign_up.html')
+        # 관리자 페이지에 표시할 회원가입 데이터 저장
+        signup_data.append({
+            'id': user_id,
+            'apply_date': time.strftime("%Y.%m.%d"),
+            'role': user_role,
+            'zip_path': zip_path
+        })
+        print(signup_data)
+        if result:
+            return jsonify({"success": True})
+        else:
+            return jsonify({"success": False})
+    
+    except Exception as e:
+        print(f"오류 발생: {e}")
+        return jsonify({"success": False, "message": f"서버 오류: {str(e)}"})
 
 # 아이디 중복 확인 버튼
 @app.route('/check_duplicate', methods=['POST'])
@@ -162,7 +164,12 @@ def download_zip(user_id):
 def admin_page():
     if 'admin' not in session:
         return redirect(url_for('login_page'))
+    
+    # signup_data 내용 확인용 디버깅 출력
+    print("Signup Data:", signup_data)
+    
     return render_template('admin.html', signup_data=signup_data)
+
 
 # main 화면
 @app.route('/main')
