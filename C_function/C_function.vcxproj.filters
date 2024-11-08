@@ -27,5 +27,19 @@
     <ClCompile Include="signup_accept.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="user.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="signup_reject.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="delete_user.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="user.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -131,10 +131,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="delete_user.c" />
     <ClCompile Include="duplicate_check.c" />
     <ClCompile Include="login.c" />
     <ClCompile Include="signup_accept.c" />
+    <ClCompile Include="signup_reject.c" />
     <ClCompile Include="signup_request.c" />
+    <ClCompile Include="user.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="user.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

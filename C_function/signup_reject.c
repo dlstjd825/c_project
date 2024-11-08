@@ -1,9 +1,8 @@
-//회원가입 수락
 #define _CRT_SECURE_NO_WARNINGS
 #include "user.h"
 
-// signup_accept 함수 정의
-__declspec(dllexport) bool signup_accept(const char* ID) {
+// reject_user 함수 DLL로 내보내기
+__declspec(dllexport) bool signup_reject(const char* ID) {
     User users[MAX_USERS];
     int num_users = load_users(users, MAX_USERS);
 
@@ -12,18 +11,18 @@ __declspec(dllexport) bool signup_accept(const char* ID) {
         return false;
     }
 
-    // 사용자 배열을 ID 기준으로 정렬
+    // 사용자 배열을 ID를 기준으로 정렬
     qsort(users, num_users, sizeof(User), compare_users);
 
-    // 이진 탐색으로 승인할 사용자 찾기
+    // 이진 탐색으로 거절할 사용자 찾기
     int index = binary_search(users, 0, num_users - 1, ID);
     if (index == -1) {
         printf("User not found.\n");
         return false;
     }
 
-    // 찾은 사용자의 상태를 "approved"로 변경
-    strcpy(users[index].status, "approved");
+    // 찾은 사용자의 상태를 "rejected"로 변경
+    strcpy(users[index].status, "rejected");
 
     // 변경된 데이터를 다시 CSV 파일에 저장
     FILE* csv_file = fopen("static/user.csv", "w");
@@ -39,11 +38,5 @@ __declspec(dllexport) bool signup_accept(const char* ID) {
     }
 
     fclose(csv_file);
-
-    // 승인 후 텍스트 파일 삭제
-    char txt_filename[MAX_LINE_LENGTH];
-    snprintf(txt_filename, sizeof(txt_filename), "static/users/%s_info.txt", ID);
-    remove(txt_filename);
-
     return true;
 }

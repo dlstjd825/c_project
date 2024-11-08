@@ -1,29 +1,14 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
-#define MAX_LINE_LENGTH 1024
+//아이디 중복 체크
+#include "user.h"
 
+// 중복 확인 함수
 __declspec(dllexport) bool duplicate_check(const char* id) {
-    FILE* file = fopen("static/user.csv", "r");
-    if (file == NULL) {
-        printf("파일을 열 수 없습니다.\n");
-        return false;
-    }
+    User users[MAX_USERS];
+    int num_users = load_users(users, MAX_USERS);
 
-    char line[MAX_LINE_LENGTH];
-    char existing_id[50];
-    bool is_duplicate = false;  
+    // 정렬 (필요할 경우)
+    qsort(users, num_users, sizeof(User), (int (*)(const void*, const void*)) strcmp);
 
-    // CSV 파일에서 ID 확인
-    while (fgets(line, sizeof(line), file)) {
-        sscanf(line, "%49[^,]", existing_id);  // CSV 파일에서 첫 번째 값(ID)을 읽음
-        if (strcmp(existing_id, id) == 0) {    // ID가 일치하는지 확인
-            is_duplicate = true;
-            break;
-        }
-    }
-
-    fclose(file);
-    return is_duplicate;
+    // 이진 탐색으로 중복 여부 확인
+    return binary_search(users, 0, num_users - 1, id) != -1;
 }

@@ -12,69 +12,121 @@
             padding: 20px;
             text-align: center;
         }
+        
         /* HOBBYHIVE admin 글씨 */
         h1 {
             font-size: 50px;
             font-weight: bold;
-            color: #000000;
+            color: #000;
+            margin: 0;
         }
-        .table-container {
+        
+        .container {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
+            gap: 4%; /* 간격 설정 */
             margin-top: 30px;
         }
+        
+        .left-section, .right-section {
+            width: 48%; /* 각 섹션의 너비를 조정 */
+            max-height: 700px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-header {
+            background-color: #fee99c;
+            padding: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .table-container {
+            overflow-y: auto;
+            flex: 1;
+        }
+        
         table {
             border-collapse: collapse;
-            width: 45%;
+            width: 100%;
+            table-layout: fixed;
         }
+        
         th, td {
             padding: 12px;
             border: 1px solid #ddd;
             text-align: center;
         }
+        
         th {
+            position: sticky; /* 헤더 고정 */
+            top: 0;
             background-color: #fee99c;
-            color: #000000;
+            color: #000;
+            z-index: 1; /* 헤더 우선순위 설정 */
         }
-        .button-link, .accept-button {
-            padding: 5px 10px;
-            color: black;
+        
+        /* 버튼 스타일 공통 부분 */
+        .button-link, .accept-button, .reject-button, .logout-button {
+            padding: 8px 12px;
+            border: none;
             border-radius: 5px;
             text-decoration: none;
             font-size: 14px;
             cursor: pointer;
+            transition: background-color 0.3s ease; /* 버튼 색상 전환 효과 추가 */
         }
+        
         .button-link {
             background-color: #ddd;
+            color: black;
         }
+        
         .button-link:hover {
             background-color: #bbb;
         }
+        
         .accept-button {
             background-color: #4CAF50; /* 수락 버튼 색상 */
             color: white;
         }
+        
         .accept-button:hover {
             background-color: #45a049;
         }
+        
+        .reject-button {
+            background-color: #FF6347; /* 거절 버튼 색상 */
+            color: white;
+        }
+        
+        .reject-button:hover {
+            background-color: #FF4500;
+        }
+        
         /* 로그아웃 버튼 스타일 */
         .logout-button {
             position: absolute;
             top: 20px;
             right: 20px;
-            background-color: #FF6347; /* 버튼 색상 */
+            background-color: #FF6347;
             color: white;
             padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
             font-size: 16px;
             font-weight: bold;
-            cursor: pointer;
         }
+        
         .logout-button:hover {
             background-color: #FF4500;
         }
     </style>
+    
 </head>
 <body>
     <!-- 로그아웃 버튼 -->
@@ -82,96 +134,123 @@
 
     <h1>HOBBYHIVE <small>admin</small></h1>
 
-    <div class="table-container">
-        <!-- 멘티 요청 테이블 -->
-        <table>
-            <thead>
-                <tr>
-                    <th colspan="4">멘티 요청</th>
-                </tr>
-                <tr>
-                    <th>아이디</th>
-                    <th>신청일</th>
-                    <th>제출 서류</th>
-                    <th>수락</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if signup_data %}
-                    {% for signup in signup_data if signup.role == "menti" %}
-                    <tr>
-                        <td>{{ signup.id }}</td>
-                        <td>{{ signup.apply_date }}</td>
-                        <td>
-                            <a href="{{ url_for('download_zip', user_id=signup.id) }}" class="button-link">열람</a>
-                        </td>
-                        <td>
-                            <button class="accept-button" onclick="acceptSignup('{{ signup.id }}')">수락</button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr>
-                        <td colspan="4">승인 대기 중인 멘티가 없습니다.</td>
-                    </tr>
-                {% endif %}
-            </tbody>
-        </table>
-    
-        <!-- 멘토 요청 테이블 -->
-        <table>
-            <thead>
-                <tr>
-                    <th colspan="4">멘토 요청</th>
-                </tr>
-                <tr>
-                    <th>아이디</th>
-                    <th>신청일</th>
-                    <th>제출 서류</th>
-                    <th>수락</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if signup_data %}
-                    {% for signup in signup_data if signup.role == "mento" %}
-                    <tr>
-                        <td>{{ signup.id }}</td>
-                        <td>{{ signup.apply_date }}</td>
-                        <td>
-                            <a href="{{ url_for('download_zip', user_id=signup.id) }}" class="button-link">열람</a>
-                        </td>
-                        <td>
-                            <button class="accept-button" onclick="acceptSignup('{{ signup.id }}')">수락</button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr>
-                        <td colspan="4">승인 대기 중인 멘토가 없습니다.</td>
-                    </tr>
-                {% endif %}
-            </tbody>
-        </table>
+    <div class="container">
+        <div class="left-section">
+            <div class="section-header">멘티</div>
+            <!-- 멘티 요청 테이블 헤더 -->
+            <div class="table-container">
+                <!-- 멘티 요청 테이블 본문 -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>아이디</th>
+                            <th>신청일</th>
+                            <th>제출 서류</th>
+                            <th>수락</th>
+                            <th>거절</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if signup_data %}
+                            {% for signup in signup_data if signup.role == "mentee" %}
+                            <tr id="row-{{ signup.id }}">
+                                <td>{{ signup.id }}</td>
+                                <td>{{ signup.apply_date }}</td>
+                                <td>
+                                    <a href="{{ url_for('download_zip', user_id=signup.id) }}" class="button-link">열람</a>
+                                </td>
+                                <td>
+                                    <button class="accept-button" onclick="acceptSignup('{{ signup.id }}')">수락</button>
+                                </td>
+                                <td>
+                                    <button class="reject-button" onclick="rejectSignup('{{ signup.id }}')">거절</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5">승인 대기 중인 멘티가 없습니다.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="section-header">멘토</div>
+            <div class="table-container">
+                <!-- 멘토 요청 테이블 본문 -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>아이디</th>
+                            <th>신청일</th>
+                            <th>제출 서류</th>
+                            <th>수락</th>
+                            <th>거절</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if signup_data %}
+                            {% for signup in signup_data if signup.role == "mento" %}
+                            <tr id="row-{{ signup.id }}">
+                                <td>{{ signup.id }}</td>
+                                <td>{{ signup.apply_date }}</td>
+                                <td>
+                                    <a href="{{ url_for('download_zip', user_id=signup.id) }}" class="button-link">열람</a>
+                                </td>
+                                <td>
+                                    <button class="accept-button" onclick="acceptSignup('{{ signup.id }}')">수락</button>
+                                </td>
+                                <td>
+                                    <button class="reject-button" onclick="rejectSignup('{{ signup.id }}')">거절</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5">승인 대기 중인 멘토가 없습니다.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    
 
     <script>
         function acceptSignup(userId) {
-            fetch(`/accept_signup/${userId}`, {
+            fetch(`/signup_accept/${userId}`, {
                 method: 'POST'
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     alert(`${userId}의 신청이 수락되었습니다.`);
-                    location.reload(); // 페이지 새로고침
+                    document.getElementById(`row-${userId}`).remove(); // 해당 행 삭제
                 } else {
                     alert("신청 수락에 실패했습니다.");
                 }
             })
             .catch(error => console.error('Error:', error));
         }
-
+    
+        function rejectSignup(userId) {
+            fetch(`/signup_reject/${userId}`, {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(`${userId}의 신청이 거절되었습니다.`);
+                    document.getElementById(`row-${userId}`).remove(); // 해당 행 삭제
+                } else {
+                    alert("신청 거절에 실패했습니다.");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    
         function logout() {
             window.location.href = '/logout';  // 로그아웃 URL로 이동
         }

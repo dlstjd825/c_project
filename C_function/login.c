@@ -1,45 +1,27 @@
-#define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-
-#define MAX_LINE_LENGTH 1024
-
-// 문자열 끝의 개행 문자 제거 함수
-void trim_newline(char* str) {
-    str[strcspn(str, "\n")] = '\0';
-}
+#include "user.h"
 
 __declspec(dllexport) int login(const char* ID, const char* PW) {
-    FILE* file = fopen("static/user.csv", "r");
-    if (file == NULL) {
-        perror("Failed to open file");  // 파일을 열지 못할 때 오류 메시지 출력
-        return 0;
-    }
+    User users[MAX_USERS];
+    int num_users = load_users(users, MAX_USERS);
 
-    // 줄, 아이디, 비번을 읽을 변수 설정
-    char line[MAX_LINE_LENGTH];
-    char csvID[50] = { 0 };
-    char csvPW[50] = { 0 };
+    // User 배열을 ID 기준으로 정렬
+    qsort(users, num_users, sizeof(User), compare_users);
 
-    // 파일의 각 줄을 읽음
-    while (fgets(line, sizeof(line), file)) {
-        // 각 줄에서 ID, PW, Role을 추출
-        if (sscanf(line, "%49[^,],%49[^,\n]", csvID, csvPW) == 2) {
-            // 개행 문자 제거
-            trim_newline(csvID);
-            trim_newline(csvPW);
+    // 이진 탐색으로 ID 찾기
+    int index = binary_search(users, 0, num_users - 1, ID);
 
-            // ID와 PW가 일치하는지 확인
-            if (strcmp(ID, csvID) == 0 && strcmp(PW, csvPW) == 0) {
-                if (strcmp(ID, "admin") == 0)  return 2;    // 관리자 로그인 성공
-                else return 1;      // 일반 사용자 로그인 성공
-                fclose(file);
-            }
+    if (index != -1 && strcmp(users[index].pw, PW) == 0) {
+        // 사용자의 상태 확인
+        if (strcmp(users[index].status, "approved") == 0) {
+            return strcmp(ID, "admin") == 0 ? 2 : 1;  // 로그인 성공 (관리자 또는 일반 사용자)
+        }
+        else if (strcmp(users[index].status, "pending") == 0) {
+            return -1;  // 승인 대기 중인 사용자
+        }
+        else if (strcmp(users[index].status, "rejected") == 0) {
+            return -2;  // 거절된 사용자
         }
     }
 
-    fclose(file);  // 파일 닫기
     return 0;  // 로그인 실패
 }

@@ -122,7 +122,7 @@
         }
 
         .id_duplication button {
-            width: 30%;
+            width: 40%;
             height: 50px;
             margin-top: 10px;
             margin-left: 10px;
@@ -370,6 +370,7 @@
     </div>
 
     <script>
+        
         document.querySelector('.larrow-container').addEventListener('click', function() {
             window.location.href = '/';  // Flask 기본 라우트로 이동해 로그인 화면으로 리다이렉트
         });
@@ -412,13 +413,12 @@
         document.getElementById('duplicate-check-button').addEventListener('click', function() {
             var idInput = document.getElementById('id-input');
             var userId = idInput.value;
-        
+    
             if (!userId) {
                 idInput.style.borderColor = 'red';
-            } 
-            else {
+            } else {
                 idInput.style.borderColor = '#ddd';
-        
+    
                 // AJAX 요청으로 Flask 서버에 ID를 전송
                 fetch('/check_duplicate', {
                     method: 'POST',
@@ -433,12 +433,25 @@
                         alert("아이디가 이미 존재합니다.");
                     } else {
                         alert("사용 가능한 아이디입니다.");
+                        // 중복 확인 완료 처리
+                        const duplicateButton = document.getElementById('duplicate-check-button');
+                        duplicateButton.textContent = "중복 확인 완료";
+                        duplicateButton.style.backgroundColor = "#ddd";
+                        duplicateButton.style.color = "#888";
+                        duplicateButton.disabled = true;
                     }
                 })
                 .catch(error => console.error('Error:', error));
             }
         });
         
+        document.getElementById('id-input').addEventListener('input', function() {
+            const duplicateButton = document.getElementById('duplicate-check-button');
+            duplicateButton.textContent = "중복 확인";
+            duplicateButton.style.backgroundColor = ""; // 기본 색상으로 초기화
+            duplicateButton.style.color = ""; // 기본 색상으로 초기화
+            duplicateButton.disabled = false; // 버튼 다시 활성화
+        });
 
         document.getElementById('password-confirm').addEventListener('input', function() {
             var password = document.getElementById('password').value;
@@ -549,7 +562,7 @@
             let gender = document.querySelector('.gender-group button.active').textContent;
             gender = (gender === "남자") ? "m" : "w";
             let role = document.querySelector('.radio-group .active').innerText;
-            role = (role === "멘토") ? "mento" : "menti";
+            role = (role === "멘토") ? "mento" : "mentee";
             
             // FormData 객체 생성
             const formData = new FormData();
@@ -563,31 +576,56 @@
         
             // 파일 업로드 추가
             const fileInput = document.getElementById('file-upload');
-            for (let file of fileInput.files) {
-                formData.append('files', file);
-            }
-        
-            // 서버로 AJAX 요청 전송
-            fetch('/sign_up.html', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("회원가입 신청이 완료되었습니다! 2~3일 내에 처리가 완료됩니다.");
-                    window.location.href = '/';
-                } else {
+                for (let file of fileInput.files) {
+                    formData.append('files', file);
+                }
+            
+                // 서버로 AJAX 요청 전송
+                fetch('/sign_up.html', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("회원가입 신청이 완료되었습니다! 2~3일 내에 처리가 완료됩니다.");
+                        window.location.href = '/';
+                    } else {
+                        alert("회원가입 신청에 실패했습니다. 잠시 뒤 다시 신청해 주시길 바랍니다.");
+                        button.disabled = false;  // 실패 시 버튼 다시 활성화
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
                     alert("회원가입 신청에 실패했습니다. 잠시 뒤 다시 신청해 주시길 바랍니다.");
                     button.disabled = false;  // 실패 시 버튼 다시 활성화
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("회원가입 신청에 실패했습니다. 잠시 뒤 다시 신청해 주시길 바랍니다.");
-                button.disabled = false;  // 실패 시 버튼 다시 활성화
+                });
             });
+
+            const inputs = [
+            document.getElementById('id-input'),
+            document.getElementById('password'),
+            document.getElementById('password-confirm'),
+            document.querySelector('input[placeholder="이름"]'),
+            document.getElementById('birth-year'),
+            document.getElementById('birth-month'),
+            document.getElementById('birth-day')
+        ];
+
+        const signupButton = document.getElementById('signup-submit-button');
+
+        function checkInputs() {
+            const allFilled = inputs.every(input => input.value.trim() !== "");
+            signupButton.disabled = !allFilled; // 모든 필드가 채워져야 활성화
+            signupButton.style.backgroundColor = allFilled ? "#FEE99C" : "#ddd"; // 스타일 변경
+        }
+
+        inputs.forEach(input => {
+            input.addEventListener('input', checkInputs);
         });
+
+        // 초기화
+        checkInputs();
     </script>
 </body>
 </html>
