@@ -101,8 +101,8 @@
         </div>
     </div>
     
-    <!-- JavaScript 코드 추가 -->
     <script>
+        // "로그인"버튼 클릭했을 때 로그인 처리
         document.getElementById('login-button').addEventListener('click', function() {
             const id = document.getElementById('login-id').value;
             const password = document.getElementById('login-password').value;
@@ -111,7 +111,8 @@
                 alert("아이디와 비밀번호를 입력해주세요.");
                 return;
             }
-        
+            
+            // 백엔드에 로그인 요청 보냄
             fetch('/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -131,7 +132,7 @@
                         .then(result => {
                             if (result.success) {
                                 alert("회원 정보가 삭제되었습니다.");
-                                window.location.href = '/';  // 로그인 페이지로 리다이렉트
+                                window.location.href = '/';
                             } else {
                                 alert("회원 정보 삭제에 실패했습니다.");
                             }

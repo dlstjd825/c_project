@@ -38,5 +38,9 @@ __declspec(dllexport) bool signup_reject(const char* ID) {
     }
 
     fclose(csv_file);
+
+    char txt_filename[MAX_LINE_LENGTH];
+    snprintf(txt_filename, sizeof(txt_filename), "static/users/%s_info.txt", ID);
+    remove(txt_filename);
     return true;
 }
