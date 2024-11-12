@@ -24,6 +24,7 @@ __declspec(dllexport) bool signup_request(const char* ID, const char* PW, const 
         return false;
     }
 
+    // user.csv에서 새로운 정보가 맨 마지막에 추가될 수 있도록 함
     fseek(csv_file, 0, SEEK_END);
 
     // CSV 형식으로 사용자 정보를 추가
@@ -32,3 +33,5 @@ __declspec(dllexport) bool signup_request(const char* ID, const char* PW, const 
 
     return true;
 }
+
+

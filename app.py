@@ -1,3 +1,4 @@
+# 필요한 라이브러리 import
 from flask import Flask, request, jsonify, render_template, redirect, url_for, session, send_file
 import ctypes
 import os
@@ -66,9 +67,9 @@ def login():
     
     if login_rst == 2:
         session['admin'] = True
-        return jsonify({"success": True, "redirect": "/admin"})
+        return jsonify({"success": True, "redirect": "/admin"}) # admin페이지로 이동
     elif login_rst == 1:
-        return jsonify({"success": True, "redirect": "/main"})
+        return jsonify({"success": True, "redirect": "/main"}) # main페이지로 이동
     elif login_rst == -1:
         return jsonify({"success": False, "message": "관리자 승인 대기중입니다."})
     elif login_rst == -2:
@@ -162,7 +163,7 @@ def confirm_rejection():
     user_id = session.pop('rejected_user', None)
     
     if user_id:
-        # delete_user 함수로 모든 정보 삭제
+        # delete_user 함수로 사용자의 모든 정보 삭제
         result = c_function.delete_user(user_id.encode('utf-8'))  # 해당 ID에 대한 정보 삭제
         if result:
             return jsonify({"success": True})
@@ -200,7 +201,7 @@ def admin_page():
             for line in file:
                 user_info = line.strip().split(',')
                 if len(user_info) < 7:
-                    continue  # 정보가 부족한 경우 건너뜁니다.
+                    continue
                 
                 id, pw, status, role, name, birthday, gender = user_info
                 
@@ -208,13 +209,13 @@ def admin_page():
                 if status == 'pending':
                     signup_data.append({
                         'id': id,
-                        'apply_date': time.strftime("%Y.%m.%d"),  # 파일에서 날짜 정보를 얻는다면 여기에 추가 가능
+                        'apply_date': time.strftime("%Y.%m.%d"), 
                         'role': role,
                         'zip_path': f'static/users/{id}_files.zip'  # 파일 경로 설정
                     })
     except FileNotFoundError:
         print("user.csv 파일을 찾을 수 없습니다.")
-    
+
     return render_template('admin.html', signup_data=signup_data)
 
 # 메인화면 라우트 => 추후 메인화면과 연결 필요
@@ -230,3 +231,5 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+

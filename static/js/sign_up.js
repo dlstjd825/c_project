@@ -11,8 +11,9 @@ document.getElementById('mentee-label').addEventListener('click', function() {
     resetFileUpload(); // 파일 업로드 초기화
 
     document.getElementById('right-section-title').textContent = '학적 확인';
-    document.getElementById('right-section-description').textContent = 
-        '학적 정보를 인증할 수 있는 파일을 올려주세요! ex) 학생증, 재학 증명서, 학교 포털사이트 로그인 화면 등';
+    document.getElementById('right-section-description').innerText = 
+        '학적 정보를 인증할 수 있는 파일을 올려주세요!\nex) 학생증, 재학 증명서, 학교 포털사이트 로그인 화면 등\n파일명이 영어인 파일만 업로드해주세요!!!';
+
 });
 
 // 멘토 선택 시 UI 업데이트
@@ -23,8 +24,8 @@ document.getElementById('mentor-label').addEventListener('click', function() {
     resetFileUpload(); // 파일 업로드 초기화
 
     document.getElementById('right-section-title').textContent = '멘토 정보';
-    document.getElementById('right-section-description').textContent = 
-        '멘토로 활동하기 위해 관련 정보를 올려주세요! ex) 자격증, 포트폴리오 등';
+    document.getElementById('right-section-description').innerText = 
+        '멘토로 활동하기 위해 관련 정보를 올려주세요!\nex) 자격증, 포트폴리오 등\n파일명이 영어인 파일만 업로드해주세요!!!';
 });
 
 // 성별 버튼 클릭 시 UI 업데이트
@@ -36,6 +37,15 @@ document.getElementById('male-button').addEventListener('click', function() {
 document.getElementById('female-button').addEventListener('click', function() {
     document.getElementById('female-button').classList.add('active');
     document.getElementById('male-button').classList.remove('active');
+});
+
+// 아이디 입력 시 중복 확인 버튼 초기화
+document.getElementById('id-input').addEventListener('input', function() {
+    const duplicateButton = document.getElementById('duplicate-check-button');
+    duplicateButton.textContent = "중복 확인";
+    duplicateButton.style.backgroundColor = "";
+    duplicateButton.style.color = "";
+    duplicateButton.disabled = false;
 });
 
 // 아이디 중복 확인 버튼 클릭 시
@@ -58,11 +68,12 @@ document.getElementById('duplicate-check-button').addEventListener('click', func
         })
         .then(response => response.json())
         .then(data => {
+            // C함수를 통해서 중복여부 받아옴 (is_duplicate)
             if (data.is_duplicate) {
                 alert("아이디가 이미 존재합니다.");
             } else {
                 alert("사용 가능한 아이디입니다.");
-                const duplicateButton = document.getElementById('duplicate-check-button');
+                const duplicateButton = document.getElementById('duplicate-check-button'    );
                 duplicateButton.textContent = "중복 확인 완료";
                 duplicateButton.style.backgroundColor = "#ddd";
                 duplicateButton.style.color = "#888";
@@ -71,15 +82,6 @@ document.getElementById('duplicate-check-button').addEventListener('click', func
         })
         .catch(error => console.error('Error:', error));
     }
-});
-
-// 아이디 입력 시 중복 확인 버튼 초기화
-document.getElementById('id-input').addEventListener('input', function() {
-    const duplicateButton = document.getElementById('duplicate-check-button');
-    duplicateButton.textContent = "중복 확인";
-    duplicateButton.style.backgroundColor = "";
-    duplicateButton.style.color = "";
-    duplicateButton.disabled = false;
 });
 
 // 비밀번호 확인 입력 시 비밀번호 일치 여부 확인

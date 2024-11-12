@@ -1,10 +1,6 @@
-111,1,approved,mentee,1,1922-2-2,m
-2,2,rejected,mento,2,2022-2-2,m
-3,3,rejected,mentee,3,2033-3-3,m
-4,4,approved,mentee,4,2044-4-4,m
+1,1,rejected,mentee,1,2011-1-1,m
+2,2,approved,mentee,2,2022-2-2,m
+aaa,a,pending,mentee,a,1999-9-9,m
 admin,admin1,approved,admin,admin,2005-8-25,m
-d,d,approved,mento,d,2022-9-9,m
-id,pw,status,role,name,birthday,g
-jis,jis111,approved,mento,insung,2005-8-25,m
-o,o,approved,mentee,o,2056-5-6,m
-q,q,approved,mentee,q,2021-1-1,w
+b,b,pending,mentee,b,2033-3-3,m
+dkssud,1,approved,mentee,안녕,1901-1-1,m

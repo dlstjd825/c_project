@@ -2,6 +2,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "user.h"
 
+// 사용자를 id순으로 정렬할 함수
 int compare_users(const void* a, const void* b) {
     return strcmp(((User*)a)->id, ((User*)b)->id);
 }
@@ -21,10 +22,11 @@ int binary_search(User* users, int left, int right, const char* id) {
         else {
             left = mid + 1;
         }
-    }
+    }   
     return -1;  // ID가 없는 경우
 }
 
+// 사용자를 user.csv에서 불러옴
 int load_users(User* users, int max_users) {
     FILE* file = fopen("static/user.csv", "r");
     if (file == NULL) {
@@ -57,6 +59,8 @@ int load_users(User* users, int max_users) {
     return count;  // 로드된 사용자 수 반환
 }
 
+// 문자열에서 개행함수 제거
 void trim_newline(char* str) {
     str[strcspn(str, "\n")] = '\0';
 }
+

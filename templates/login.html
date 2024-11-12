@@ -6,81 +6,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/login.css">
     <title>HOBBYHIVE 로그인</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f9f9f9;
-            font-family: 'Gothic A1', sans-serif;
-        }
-        /* 로그인 화면 */
-        .login-container {
-            text-align: center;
-            background-color: white;
-            padding: 50px;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
 
-        /* 로고 */
-        .login-container img {
-            width: 200px;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        /* 아이디, 비밀번호 입력창 */
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-        
-        /* 로그인 버튼 */ 
-        .login-container button {
-            width: 100%;
-            padding: 15px;
-            background-color: #FEE99C;
-            color: #333;
-            border: none;
-            border-radius: 5px;
-            font-size: 25px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: 0.3s;
-        }
-
-        .login-container button:hover {
-            background-color: #bfb89f;
-        }
-
-        .signup {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .signup a {
-            color: #333;
-            font-size: 18px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .signup a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
@@ -100,51 +29,6 @@
             <a href="sign_up.html">회원가입</a> <!-- 회원가입을 클릭하면 sign_up.html로 이동 -->
         </div>
     </div>
-    
-    <script>
-        // "로그인"버튼 클릭했을 때 로그인 처리
-        document.getElementById('login-button').addEventListener('click', function() {
-            const id = document.getElementById('login-id').value;
-            const password = document.getElementById('login-password').value;
-        
-            if (id === "" || password === "") {
-                alert("아이디와 비밀번호를 입력해주세요.");
-                return;
-            }
-            
-            // 백엔드에 로그인 요청 보냄
-            fetch('/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: id, password: password }) // 변수 이름 수정
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = data.redirect;
-                } else if (data.message === "회원가입이 거절되었습니다.") {
-                    // 거절된 사용자에 대한 알림 (확인 버튼만 표시)
-                    alert(data.message);
-                    
-                    // 회원 정보 삭제 요청
-                    fetch('/delete_rejected_user', { method: 'POST' })
-                        .then(response => response.json())
-                        .then(result => {
-                            if (result.success) {
-                                alert("회원 정보가 삭제되었습니다.");
-                                window.location.href = '/';
-                            } else {
-                                alert("회원 정보 삭제에 실패했습니다.");
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        });    
-    </script>
-    
 </body>
+<script src="static/js/login.js"></script>
 </html>
