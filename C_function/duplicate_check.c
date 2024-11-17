@@ -15,7 +15,7 @@ __declspec(dllexport) bool duplicate_check(const char* id) {
     qsort(users, num_users, sizeof(User), compare_users);
 
     // 이진 탐색으로 중복 여부 확인
-    bool result = binary_search(users, 0, num_users - 1, id);
+    bool result = binary_search(users, 0, num_users - 1, id) == -1 ? false : true;
 
     // 메모리 해제
     free(users);
