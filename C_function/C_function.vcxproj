@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="change_id.c" />
+    <ClCompile Include="change_password.c" />
     <ClCompile Include="delete_user.c" />
     <ClCompile Include="duplicate_check.c" />
     <ClCompile Include="login.c" />

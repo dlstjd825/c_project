@@ -1,20 +1,21 @@
-// user.h Çì´õÆÄÀÏ ÇÔ¼ö ±¸Çö
+// user.h ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 #define _CRT_SECURE_NO_WARNINGS
 #include "user.h"
+#include <wchar.h>
 
-// »ç¿ëÀÚ¸¦ id¼øÀ¸·Î Á¤·ÄÇÒ ÇÔ¼ö
+// ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ idï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 int compare_users(const void* a, const void* b) {
     return strcmp(((User*)a)->id, ((User*)b)->id);
 }
 
-// ÀÌÁø Å½»ö ÇÔ¼ö: Á¤·ÄµÈ users ¹è¿­¿¡¼­ id¸¦ Ã£À½
+// ï¿½ï¿½ï¿½ï¿½ Å½ï¿½ï¿½ ï¿½Ô¼ï¿½: ï¿½ï¿½ï¿½Äµï¿½ users ï¿½è¿­ï¿½ï¿½ï¿½ï¿½ idï¿½ï¿½ Ã£ï¿½ï¿½
 int binary_search(User* users, int left, int right, const char* id) {
     while (left <= right) {
         int mid = left + (right - left) / 2;
         int cmp = strcmp(id, users[mid].id);
 
-        if (cmp == 0) { // ID°¡ ÀÏÄ¡ÇÏ´Â °æ¿ì
-            return mid;  // ÀÏÄ¡ÇÏ´Â ÀÎµ¦½º ¹ÝÈ¯
+        if (cmp == 0) { // IDï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
+            return mid;  // ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½È¯
         }
         else if (cmp < 0) {
             right = mid - 1;
@@ -23,10 +24,31 @@ int binary_search(User* users, int left, int right, const char* id) {
             left = mid + 1;
         }
     }   
-    return -1;  // ID°¡ ¾ø´Â °æ¿ì
+    return -1;  // IDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 }
 
-// »ç¿ëÀÚ¸¦ user.csv¿¡¼­ ºÒ·¯¿È
+/*int load_users(User* users, int max_users) {
+    // //const char* file_path = "static/user.csv"; // ì ˆëŒ€ ê²½ë¡œ ì§€ì •
+    // //FILE* file = fopen(file_path, "r");
+    
+    // if (file == NULL) {
+    //     fprintf(stderr, "Failed to dpen csv file %s: %s\n", file_path, strerror(errno));
+    //     return 0;
+    // }
+
+   
+
+    FILE *file = _wfopen(L"C:\\Users\\seeun\\OneDrive\\ë°°ê²½ í™”ë©´\\í”Œë°2\\hobbyhive\\c_project\\static\\user.csv", L"r");
+
+
+
+    if (file == NULL) {
+        fprintf(stderr, "Failed to dpen csv file %s\n", strerror(errno));
+        return 0;
+    }
+    */
+
+// ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ user.csvï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½
 int load_users(User* users, int max_users) {
     FILE* file = fopen("static/user.csv", "r");
     if (file == NULL) {
@@ -38,11 +60,11 @@ int load_users(User* users, int max_users) {
     char line[MAX_LINE_LENGTH];
 
     while (fgets(line, sizeof(line), file) && count < max_users) {
-        // °¢ ÁÙ¿¡¼­ ¸ðµç ÇÊµå¸¦ ÃßÃâÇÏ¿© User ¹è¿­¿¡ ÀúÀå
+        // ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Êµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ User ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (sscanf(line, "%49[^,],%49[^,],%9[^,],%9[^,],%49[^,],%49[^,],%1s",
             users[count].id, users[count].pw, users[count].status,
             users[count].role, users[count].name, users[count].birthday, users[count].gender) == 7) {
-            // °¢ ÇÊµå¿¡ ´ëÇØ °³Çà ¹®ÀÚ Á¦°Å
+            // ï¿½ï¿½ ï¿½Êµå¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             trim_newline(users[count].id);
             trim_newline(users[count].pw);
             trim_newline(users[count].status);
@@ -56,10 +78,10 @@ int load_users(User* users, int max_users) {
     }
 
     fclose(file);
-    return count;  // ·ÎµåµÈ »ç¿ëÀÚ ¼ö ¹ÝÈ¯
+    return count;  // ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯
 }
 
-// ¹®ÀÚ¿­¿¡¼­ °³ÇàÇÔ¼ö Á¦°Å
+// ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 void trim_newline(char* str) {
     str[strcspn(str, "\n")] = '\0';
 }
