@@ -27,27 +27,6 @@ int binary_search(User* users, int left, int right, const char* id) {
     return -1;  // ID�� ���� ���
 }
 
-/*int load_users(User* users, int max_users) {
-    // //const char* file_path = "static/user.csv"; // 절대 경로 지정
-    // //FILE* file = fopen(file_path, "r");
-    
-    // if (file == NULL) {
-    //     fprintf(stderr, "Failed to dpen csv file %s: %s\n", file_path, strerror(errno));
-    //     return 0;
-    // }
-
-   
-
-    FILE *file = _wfopen(L"C:\\Users\\seeun\\OneDrive\\배경 화면\\플밍2\\hobbyhive\\c_project\\static\\user.csv", L"r");
-
-
-
-    if (file == NULL) {
-        fprintf(stderr, "Failed to dpen csv file %s\n", strerror(errno));
-        return 0;
-    }
-    */
-
 // ����ڸ� user.csv���� �ҷ���
 int load_users(User* users, int max_users) {
     FILE* file = fopen("static/user.csv", "r");

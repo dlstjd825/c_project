@@ -237,6 +237,27 @@ def main_page():
     return render_template('main.html')
 
 
+
+
+
+
+@app.route('/get_user_info', methods=['GET'])
+def get_user_info():
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({"success": False, "message": "User not logged in"}), 401
+
+    user_info = {
+        "id": user_id.decode('utf-8'),  # 바이트형식에서 문자열로 변환
+        #"subtitle": "베이킹 꿈나무"  # 이 부분은 실제 DB에서 가져오는 값을 사용해야 합니다.
+    }
+    return jsonify(user_info)
+
+
+
+
+
+
 # 마이페이지 라우트
 @app.route('/mypage')
 def mypage():

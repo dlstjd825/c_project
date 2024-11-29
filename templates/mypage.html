@@ -7,7 +7,7 @@
     <script defer src="/static/js/change_id.js"></script> <!-- change_id.js 파일 포함 -->
     <script defer src="/static/js/change_password.js"></script> <!-- change_password.js 파일 포함 -->
 
-    <!-- <script defer src="/static/js/name.js"></script> name.js 파일 포함 -->
+    <script defer src="/static/js/name.js"></script>
 
     <style>
         /* 기본 스타일 */
@@ -282,8 +282,8 @@
             <div class="profile">
                 <img src="C:\Users\seeun\OneDrive\바탕 화면\플밍2\기본프로필사진.png" alt="Profile Picture">
                 <div class="profile-info">
-                    <a href="#">(id)</span></a>
-                    <a href="#">베이킹 꿈나무(수식어)</a>
+                    <a href="#"><span id="loggedInUser">(id)</span></a>
+                    <!-- <a href="#">베이킹 꿈나무(수식어)</a> -->
                 </div>                
                 <div class="profile-actions">
                     <a href="#">프로필 수정</a>
@@ -295,8 +295,8 @@
             </div>
             <!-- 클래스 섹션 -->
             <div>
-                <div class="page-title">(이름)의 페이지</div>
-                <div class="page-subtitle">베이킹 꿈나무(수식어) 한줄소개</div>
+                <div class="page-title" id="userPageTitle">(id)의 페이지</div>
+                <!-- <div class="page-subtitle">베이킹 꿈나무(수식어) 한줄소개</div> -->
                 <h2 class="section-title">수강 중인 클래스</h2>
                 <div class="grid-container">
                     <div class="grid-item">
@@ -309,13 +309,13 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <!-- <div>
                 <h2 class="section-title">즐겨찾기</h2>
                 <div class="grid-item">
                     <div style="width: 150px; height: 150px; background: #ccc; margin: 0 auto;"></div>
                     <p>클래스 1</p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
         <!-- 아이디 변경 모달 -->

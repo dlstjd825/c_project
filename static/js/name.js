@@ -2,9 +2,11 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('/get_user_info')
     .then(response => response.json())
     .then(data => {
-        document.getElementById('loggedInUser').textContent = data.id;
-        document.getElementById('userSubTitle').textContent = data.subtitle || '베이킹 꿈나무';
-        document.getElementById('userPageTitle').textContent = data.id + '의 페이지';
+        document.getElementById('loggedInUser').textContent = 'ID' + data.id;
+        
+        document.getElementById('userPageTitle').textContent = data.id + '님의 페이지';
+
+        //document.getElementById('userSubTitle').textContent = data.subtitle || '수식어';
     })
     .catch(error => {
         console.error('Error:', error);
