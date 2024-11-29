@@ -7,7 +7,7 @@
 수정일 : 2024-11-29
 수정인 : 우재연
 - user interface 완료
-- class_detail.html, community_detail.html
+- community_detail.html
 
 ***
 수정일 : 2024-11-29
