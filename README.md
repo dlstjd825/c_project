@@ -3,6 +3,11 @@
 양식 복붙해서 써주세용~ㅎ  
 가장 최근 수정 내역 위에다가 작성합시다
 
+***
+수정일 : 2024-11-29
+수정인 : 우재연
+- user interface 완료
+- class_detail.html, community_detail.html
 
 ***
 수정일 : 2024-11-29
