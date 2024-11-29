@@ -9,8 +9,9 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.secret_key = 'dkssud!dlrjs!vmfaldxlavmfzhemdla~' # 세션 암호화 위한 키
 
-UPLOAD_FOLDER = 'static/uploads' # 회원가입에서 업로드한 파일 관리
-USER_INFO_FOLDER = 'static/users' # admin에게 전달할 사용자 정보 폴더
+UPLOAD_FOLDER = 'c_project/static/uploads' # 회원가입에서 업로드한 파일 관리
+USER_INFO_FOLDER = 'c_project/static/users' # admin에게 전달할 사용자 정보 폴더
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
 app.config['USER_INFO_FOLDER'] = USER_INFO_FOLDER
 
@@ -21,7 +22,7 @@ if not os.path.exists(USER_INFO_FOLDER):
     os.makedirs(USER_INFO_FOLDER)
 
 # C에서 구현한 함수를 사용하기 위해 dll파일 불러옴
-c_function = ctypes.CDLL(os.path.join(os.path.dirname(__file__), r'C_function\C_function.dll'))
+c_function = ctypes.CDLL(os.path.join(os.path.dirname(__file__), r'C_function\x64\Debug\C_function.dll'))
 
 # 로그인 함수
 c_function.login.restype = ctypes.c_int
@@ -47,6 +48,15 @@ c_function.signup_reject.argtypes = [ctypes.c_char_p]
 c_function.delete_user.restype = ctypes.c_bool
 c_function.delete_user.argtypes = [ctypes.c_char_p]
 
+#추가
+# change_id 함수 설정
+c_function.change_id.restype = ctypes.c_bool
+c_function.change_id.argtypes = [ctypes.c_char_p]
+
+# change_password 함수 설정
+c_function.change_password.restype = ctypes.c_bool
+c_function.change_password.argtypes = [ctypes.c_char_p]
+
 # admin페이지에서 보여줄 내용 (회원가입 대기자) 저장하는 리스트
 signup_data = []
 
@@ -64,11 +74,14 @@ def login():
     
     # login_rst > 2: admin, 1: 일반 사용자, 0: 오류, -1: 승인 대기중, -2: 거절
     login_rst = c_function.login(user_id, user_password)
+    # login_rst = 1
     
     if login_rst == 2:
         session['admin'] = True
         return jsonify({"success": True, "redirect": "/admin"}) # admin페이지로 이동
     elif login_rst == 1:
+        session['user_id'] = user_id  # 세션에 user_id 저장#추가한거임
+        session['user_password'] = user_password
         return jsonify({"success": True, "redirect": "/main"}) # main페이지로 이동
     elif login_rst == -1:
         return jsonify({"success": False, "message": "관리자 승인 대기중입니다."})
@@ -222,6 +235,83 @@ def admin_page():
 @app.route('/main')
 def main_page():
     return render_template('main.html')
+
+
+
+
+
+
+@app.route('/get_user_info', methods=['GET'])
+def get_user_info():
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({"success": False, "message": "User not logged in"}), 401
+
+    user_info = {
+        "id": user_id.decode('utf-8'),  # 바이트형식에서 문자열로 변환
+        #"subtitle": "베이킹 꿈나무"  # 이 부분은 실제 DB에서 가져오는 값을 사용해야 합니다.
+    }
+    return jsonify(user_info)
+
+
+
+
+
+
+# 마이페이지 라우트
+@app.route('/mypage')
+def mypage():
+    return render_template('mypage.html')
+
+
+# 프로필 수정 처리 라우트
+@app.route('/change_profile', methods=['POST'])
+def change_profile():
+    # 여기서 프로필 수정 처리 코드 작성
+    return redirect(url_for('mypage'))
+
+
+@app.route('/change_id', methods=['POST'])
+def change_id():
+    data = request.json
+    new_id = data.get('new_id')  # JSON 데이터에서 new_id 가져오기
+    old_id = session.get('user_id')  # 세션에서 user_id 가져오기
+
+    # 검증
+    if not old_id:
+        return jsonify({"success": False, "message": "Session user_id is missing"})
+    if not new_id or not isinstance(new_id, str):
+        return jsonify({"success": False, "message": "Invalid new ID"})
+
+    # ID 변경 로직 호출
+    result = c_function.change_id(old_id, new_id.encode('utf-8')) # 세션에서 가져온애들은 이미 인코드 했기 때문에 다시 하면 안됨. new_id만 해주기
+
+    if result:
+        session['user_id'] = new_id
+        return jsonify({"success": True})
+    return jsonify({"success": False, "message": "Failed to change ID"})
+
+
+@app.route('/change_password', methods=['POST'])
+def change_password():
+    data = request.json
+    user_id = session.get('user_id')  # 세션에서 user_id 가져오기
+  # JSON 데이터에서 id 가져오기
+    old_password = session.get('user_password')  # JSON 데이터에서 oldPassword 가져오기 아니고 마찬가지로 user_password세션에서 가져와야 함.
+    new_password = data.get('newPassword')  # JSON 데이터에서 newPassword 가져오기
+
+    # 검증
+    if not user_id or not old_password or not new_password:
+        return jsonify({"success": False, "message": "Invalid input"})
+
+    # 비밀번호 변경 로직 호출
+    result = c_function.change_password(user_id, old_password, new_password.encode('utf-8'))
+
+    if result:
+        return jsonify({"success": True})
+    return jsonify({"success": False, "message": "Failed to change password"})
+
+
 
 # admin페이지 로그아웃 라우트
 @app.route('/logout')

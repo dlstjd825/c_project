@@ -36,6 +36,12 @@
     <ClCompile Include="delete_user.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="change_password.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="change_id.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="user.h">

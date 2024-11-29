@@ -1,0 +1,3 @@
+C:\Users\seeun\OneDrive\바탕 화면\플밍2\hobbyhive\c_project\C_function\x64\Debug\C_function.dll
+C:\Users\seeun\OneDrive\바탕 화면\hobbyhive\c_project\C_function\x64\Debug\C_function.dll
+C:\Users\seeun\OneDrive\바탕 화면\hobbyhivefixed\c_project\C_function\x64\Debug\C_function.dll

@@ -20,7 +20,7 @@ __declspec(dllexport) bool signup_request(const char* ID, const char* PW, const 
     // user.csv 파일에 사용자 정보 추가
     FILE* csv_file = fopen("static/user.csv", "a+");
     if (csv_file == NULL) {
-        perror("Failed to open CSV file");
+        perror("Faild to find CSV file");
         return false;
     }
 
