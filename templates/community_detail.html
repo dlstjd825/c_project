@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 팝업</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #333;
+            overflow: hidden;
+        }
+        .popup-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .popup {
+            display: flex;
+            width: 80%;
+            height: 80%;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .popup-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .popup-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .popup-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .popup-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .popup-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .popup-header .username {
+            font-weight: bold;
+        }
+        .popup-body {
+            border-bottom: 1px solid #ddd; /* 본문과 댓글 구분선 */
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .popup-body p {
+            margin-bottom: 10px;
+        }
+        .popup-comments {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .comment {
+            margin-bottom: 10px;
+        }
+        .comment strong {
+            font-weight: bold;
+        }
+        .popup-footer {
+            margin-top: 10px;
+        }
+        .comment-section {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .comment-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .comment-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .comment-button:hover {
+            background-color: #0056b3;
+        }
+        .like-button {
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            outline: none;
+        }
+        .like-button .fas {
+            color: red;
+        }
+        .like-button .far {
+            color: gray;
+        }
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="popup-container">
+    <div class="popup">
+        <div class="popup-image">
+            <img src="https://via.placeholder.com/500" alt="게시글 이미지">
+        </div>
+        <div class="popup-content">
+            <div class="popup-header">
+                <img src="https://via.placeholder.com/50" alt="프로필 사진">
+                <div>
+                    <p class="username">게시자 이름</p>
+                </div>
+            </div>
+            <div class="popup-body">
+                <p>이 게시물은 취미 클래스에서 촬영된 사진입니다. 새로운 취미를 배우며 즐거운 시간을 보내세요!</p>
+            </div>
+            <div class="popup-comments" id="comments">
+                <div class="comment">
+                    <strong>사용자1:</strong> 정말 멋진 클래스네요!
+                </div>
+                <div class="comment">
+                    <strong>사용자2:</strong> 저도 참여하고 싶어요!
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="like-button">
+                    <i class="far fa-heart"></i>
+                </button>
+                <div class="comment-section">
+                    <input type="text" class="comment-input" id="commentInput" placeholder="댓글을 입력하세요...">
+                    <button class="comment-button" id="commentButton">댓글 작성</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="close-button">&times;</div>
+</div>
+
+<script>
+    // 좋아요 버튼 이벤트
+    const likeButton = document.querySelector('.like-button');
+    const likeIcon = likeButton.querySelector('i');
+
+    likeButton.addEventListener('click', () => {
+        if (likeIcon.classList.contains('far')) {
+            likeIcon.classList.remove('far');
+            likeIcon.classList.add('fas');
+        } else {
+            likeIcon.classList.remove('fas');
+            likeIcon.classList.add('far');
+        }
+    });
+
+    // 댓글 작성 이벤트
+    const commentButton = document.getElementById('commentButton');
+    const commentInput = document.getElementById('commentInput');
+    const comments = document.getElementById('comments');
+
+    commentButton.addEventListener('click', () => {
+        const commentText = commentInput.value.trim();
+        if (commentText) {
+            const comment = document.createElement('div');
+            comment.classList.add('comment');
+            comment.innerHTML = `<strong>나:</strong> ${commentText}`;
+            comments.appendChild(comment);
+            commentInput.value = '';
+        }
+    });
+
+    // 팝업 닫기 버튼 이벤트
+    document.querySelector('.close-button').addEventListener('click', () => {
+        document.querySelector('.popup-container').style.display = 'none';
+    });
+</script>
+
+</body>
+</html>
