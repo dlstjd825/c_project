@@ -7,8 +7,9 @@
     <script defer src="/static/js/change_id.js"></script> <!-- change_id.js 파일 포함 -->
     <script defer src="/static/js/change_password.js"></script> <!-- change_password.js 파일 포함 -->
 
-    <script defer src="/static/js/name.js"></script>
-    <!-- <script defer src="/static/js/picture_change.js"></script> -->
+    <script defer src="/static/js/name_simple.js"></script>
+    
+    <script defer src="/static/js/picture_change.js"></script>
 
     <style>
         /* 기본 스타일 */
@@ -116,12 +117,26 @@
             background-color: #FEE99C; /* 마우스 올릴 시 배경색 변경 */
             transform: scale(1.05); /* 마우스 올릴 시 크기 증가 */
         }
-        .grid-item p {
+        /* .grid-item p {
             margin: 10px 0 0; 
             font-size: 18px; 
             font-weight: bold; 
             color: #333;
+        } */
+
+        .grid-item img {
+            width: 100%; /* 이미지가 그리드 크기에 맞게 */
+            height: auto; /* 비율 유지 */
+            border-radius: 10px; /* 둥근 모서리 */
+            margin-bottom: 10px; /* 텍스트와 간격 */
         }
+        .grid-item p {
+            margin: 0; /* 텍스트 여백 제거 */
+            font-size: 16px; /* 텍스트 크기 조정 */
+            text-align: center; /* 텍스트 정렬 */
+            color: #555; /* 텍스트 색상 */
+        }
+
         /* 프로필 섹션 스타일 */
         .profile {
             width: 15%; 
@@ -149,7 +164,7 @@
             text-align: center; 
         }
         .profile-info .id {
-            font-size: 20px; 
+            font-size: 40px; 
             font-weight: bold; 
         }
         .profile-info .description {
@@ -184,7 +199,8 @@
         .page-title {
             font-size: 30px; 
             font-weight: bold; 
-            margin-bottom: 50px; 
+            margin-top: 50px;
+            margin-bottom: 0px; 
         }
         .page-subtitle {
             font-size: 18px; 
@@ -196,15 +212,6 @@
             font-weight: bold; 
             margin: 110px 0 10px; 
         }
-
-        .phone-number {
-            font-size: 24px; 
-            font-weight: bold; 
-            margin-top: 50px; 
-           
-        }
-
-
 
         /* 모달 스타일 */
         .modal {
@@ -262,6 +269,42 @@
         .modal button:hover {
             background-color: #f39c12; 
         }
+
+        .photo-selection {
+            margin-top: 30px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .modal-content img {
+            width: 100%; /* 모달에 표시되는 이미지 크기 조정 */
+            max-width: 300px; /* 최대 크기 제한 */
+            border-radius: 10px; /* 둥근 모서리 */
+        }
+        .close {
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -282,114 +325,88 @@
             <!-- 네비게이션 버튼 -->
             <div class="nav-buttons">
                 <a href="/main">클래스</a>
-                <a href="#">커뮤니티</a>
+                <a href="/main">커뮤니티</a>
                 <a href="/mypage" class="active">마이페이지</a>
             </div>
+            <!-- 클래스 섹션 -->
+            <div>
+                <div class="page-title" id="userPageTitle"> </div>
+                <!-- <div class="page-subtitle">베이킹 꿈나무(수식어) 한줄소개</div> -->
+            </div>
         </div>
+        <!-- 콘텐츠 영역 -->
+        <div class="content-wrapper">
             <!-- 프로필 섹션 -->
             <div class="profile">
                 <img id="profile-picture" src="/static/mypageprofile.png" alt="Profile Picture">
                 <div class="profile-info">
-                    <a href="#"><span id="loggedInUser">(id)</span></a>
+                    <a href="#"><span id="loggedInUser_simple">(id)</span></a>
                     <!-- <a href="#">베이킹 꿈나무(수식어)</a> -->
                 </div>            
                 <div class="profile-actions">
-                    <a href="/picture_change">프로필 사진 수정</a>
+                    <!-- <a href="#">프로필 사진 수정</a> -->
+                    <a href="#" >프로필 사진 수정</a>
                     <a href="#" id="change-id">아이디 변경</a>
                     <a href="#" id="change-password">비밀번호 변경</a>
                     <!-- <a href="#">즐겨찾기</a> -->
-                    <a href="#">고객센터</a>
+                    <a href="/mypagephonenumber">고객센터</a>
                 </div>
-            </div>
-            <!-- 클래스 섹션 -->
-            <div>
-                <div class="page-title" id="userPageTitle">(id)의 페이지</div>
-                <!-- <div class="page-subtitle">베이킹 꿈나무(수식어) 한줄소개</div> -->
             </div>
 
-             <!-- 폰번호띄우기 섹션 -->
-             <div class="content-wrapper">
-                <div class="left-logo">
-                    <img src="/static/logo1.png" alt="Logo" class="logo-image" />
+            <!-- 사진 선택 섹션 (항상 표시) 이건 또 사진을 c_project 속 static에 넣어야 화면에 나옴. -->
+            <div class="photo-selection">
+                <h2>프로필 사진 수정</h2>
+                <div class="grid-container">
+                    <div class="grid-item" onclick="openModal('/static/guitar.png')">
+                        <img src="/static/guitar.png" alt="Guitar" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Guitar</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('/static/bike.png')">
+                        <img src="/static/bike.png" alt="Bike" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Bike</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('/static/art.png')">
+                        <img src="/static/art.png" alt="Art" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Art</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('/static/flower.png')">
+                        <img src="/static/flower.png" alt="Flower" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Flower</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('/static/pet.png')">
+                        <img src="/static/pet.png" alt="Pet" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Pet</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('/static/space.png')">
+                        <img src="/static/space.png" alt="Space" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Space</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('/static/book.png')">
+                        <img src="/static/book.png" alt="Book" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Book</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('/static/party.png')">
+                        <img src="/static/party.png" alt="Party" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Party</p>
+                    </div>
+                    
                 </div>
-                <div class="info-card">
-                    <h2 class="info-title">문의사항 안내</h2>
-                    <p class="info-description">문의사항이 있으시다면</p>
-                    <p class="info-description">아래의 번호로 전화주세요.</p>
-                    <div class="contact-details">
-                        <p class="phone-number">📞 010-1234-1234</p>
-                        <p class="contact-hours">평일: 10:00AM ~ 20:00PM<br>토요일: 10:00AM ~ 17:00PM</p>
-                        <p class="email-contact">📧 이메일 상담: hobbyhive@naver.com</p>
+            </div>
+
+
+                <!-- 프로필 사진 변경 모달 -->
+                <div id="photoModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <h3>이 사진으로 프로필을</h3>
+                        <h3>변경하시겠습니까?</h3>
+                        <img id="modal-photo" src="" alt="Selected Photo" style="width: 100%; border-radius: 10px;">
+                        <button onclick="confirmPhotoChange()">확인</button>
                     </div>
                 </div>
             </div>
-            
-            
-            <style>
-                .content-wrapper {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    flex-wrap: wrap;
-                    padding: 20px;
-                }
-            
-                .left-logo {
-                    flex: 1;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-            
-                .logo-image {
-                    width: 250px; /* 이미지 너비 */
-                    height: 200px; /* 이미지 높이 */
-                    margin-bottom: 25px; /* 아래 여백 */
-                }
-            
-                .info-card {
-                    flex: 2;
-                    background-color: #f9f9f9;
-                    padding: 30px;
-                    border-radius: 10px;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                    margin-left: 80px;
-                    margin-right: 50px;
-                    text-align: left; /* 왼쪽 정렬로 변경 */
-                }
-            
-                .info-title {
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #333;
-                    margin-bottom: 15px;
-                }
-            
-                .info-description {
-                    font-size: 18px;
-                    margin-bottom: 20px;
-                    color: #666;
-                }
-            
-                .contact-details {
-                    font-size: 16px;
-                    line-height: 1.6;
-                }
-            
-                .phone-number {
-                    font-size: 22px;
-                    font-weight: bold;
-                    margin-bottom: 10px;
-                }
-            
-                .contact-hours,
-                .email-contact {
-                    font-size: 16px;
-                    color: #555;
-                }
-            </style>
         </div>
-    </div>
+
         <!-- 아이디 변경 모달 -->
         <div id="idModal" class="modal">
             <div class="modal-content">

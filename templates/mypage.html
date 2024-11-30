@@ -8,6 +8,7 @@
     <script defer src="/static/js/change_password.js"></script> <!-- change_password.js 파일 포함 -->
 
     <script defer src="/static/js/name.js"></script>
+    <!-- <script defer src="/static/js/picture_change.js"></script> -->
 
     <style>
         /* 기본 스타일 */
@@ -137,9 +138,9 @@
         }
         .profile img {
             border-radius: 50%; /* 원형 이미지 */
-            width: 80px; /* 이미지 너비 */
-            height: 80px; /* 이미지 높이 */
-            margin-bottom: 20px; /* 아래 여백 */
+            width: 120px; /* 이미지 너비 */
+            height: 120px; /* 이미지 높이 */
+            margin-bottom: 25px; /* 아래 여백 */
         }
         .profile-info {
             display: flex;
@@ -148,7 +149,7 @@
             text-align: center; 
         }
         .profile-info .id {
-            font-size: 20px; 
+            font-size: 40px; 
             font-weight: bold; 
         }
         .profile-info .description {
@@ -181,9 +182,10 @@
         }
         /* 페이지 제목 스타일 */
         .page-title {
-            font-size: 24px; 
+            font-size: 30px; 
             font-weight: bold; 
-            margin-bottom: 20px; 
+            margin-top: 50px;
+            margin-bottom: 0px; 
         }
         .page-subtitle {
             font-size: 18px; 
@@ -193,7 +195,7 @@
         .section-title {
             font-size: 22px; 
             font-weight: bold; 
-            margin: 20px 0 10px; 
+            margin: 110px 0 10px; 
         }
 
         /* 모달 스타일 */
@@ -261,7 +263,7 @@
         <div class="sidebar">
             <!-- 로고 -->
             <div class="logo">
-                <img src="c_project\static\mypageprofile.png" alt="HobbyHive">
+                <img src="/static/logo2.png" alt="HobbyHive">
                 <span style="font-size: 24px; font-weight: bold;"> HOBBYHIVE</span>
             </div>
             <!-- 검색창 -->
@@ -280,22 +282,22 @@
         <div class="content-wrapper">
             <!-- 프로필 섹션 -->
             <div class="profile">
-                <img src="C:\Users\seeun\OneDrive\바탕 화면\플밍2\기본프로필사진.png" alt="Profile Picture">
+                <img id="profile-picture" src="/static/mypageprofile.png" alt="Profile Picture">
                 <div class="profile-info">
                     <a href="#"><span id="loggedInUser">(id)</span></a>
                     <!-- <a href="#">베이킹 꿈나무(수식어)</a> -->
                 </div>                
                 <div class="profile-actions">
-                    <a href="#">프로필 수정</a>
+                    <a href="/picture_change">프로필 사진 수정</a>
                     <a href="#" id="change-id">아이디 변경</a>
                     <a href="#" id="change-password">비밀번호 변경</a>
-                    <a href="#">즐겨찾기</a>
-                    <a href="#">고객센터</a>
+                    <!-- <a href="#">즐겨찾기</a> -->
+                    <a href="/mypagephonenumber">고객센터</a>
                 </div>
             </div>
             <!-- 클래스 섹션 -->
             <div>
-                <div class="page-title" id="userPageTitle">(id)의 페이지</div>
+                <div class="page-title" id="userPageTitle"> (id)의 페이지</div>
                 <!-- <div class="page-subtitle">베이킹 꿈나무(수식어) 한줄소개</div> -->
                 <h2 class="section-title">수강 중인 클래스</h2>
                 <div class="grid-container">
@@ -309,13 +311,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div>
-                <h2 class="section-title">즐겨찾기</h2>
-                <div class="grid-item">
-                    <div style="width: 150px; height: 150px; background: #ccc; margin: 0 auto;"></div>
-                    <p>클래스 1</p>
-                </div>
-            </div> -->
         </div>
     </div>
         <!-- 아이디 변경 모달 -->

@@ -6,7 +6,7 @@ import zipfile
 import time
 from werkzeug.utils import secure_filename
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static') ##여기 수정한거. 원래 __name__ 밖에 없음.
 app.secret_key = 'dkssud!dlrjs!vmfaldxlavmfzhemdla~' # 세션 암호화 위한 키
 
 UPLOAD_FOLDER = 'c_project/static/uploads' # 회원가입에서 업로드한 파일 관리
@@ -237,8 +237,17 @@ def main_page():
     return render_template('main.html')
 
 
+@app.route('/get_user_info_simple', methods=['GET'])
+def get_user_info_simple():
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({"success": False, "message": "User not logged in"}), 401
 
-
+    user_info = {
+        "id": user_id.decode('utf-8'),  # 바이트형식에서 문자열로 변환
+        #"subtitle": "베이킹 꿈나무"  # 이 부분은 실제 DB에서 가져오는 값을 사용해야 합니다.
+    }
+    return jsonify(user_info)
 
 
 @app.route('/get_user_info', methods=['GET'])
@@ -254,22 +263,39 @@ def get_user_info():
     return jsonify(user_info)
 
 
-
-
-
-
 # 마이페이지 라우트
 @app.route('/mypage')
 def mypage():
     return render_template('mypage.html')
 
+# 마이페이지-고객센터 라우트
+@app.route('/mypagephonenumber')
+def mypagephonenumber():
+    return render_template('mypagephonenumber.html')
 
-# 프로필 수정 처리 라우트
-@app.route('/change_profile', methods=['POST'])
-def change_profile():
-    # 여기서 프로필 수정 처리 코드 작성
-    return redirect(url_for('mypage'))
+# 마이페이지-프로필수정 라우트
+@app.route('/picture_change')
+def picture_change():
+    return render_template('picture_change.html')
 
+@app.route('/update-profile-picture', methods=['POST'])
+def update_profile_picture():
+    data = request.json
+    photo = data.get('photo')
+    if photo:
+        # 여기서 데이터베이스에 프로필 사진 저장
+        return jsonify(success=True, message="프로필 사진이 변경되었습니다.")
+    return jsonify(success=False, message="사진 정보가 없습니다.")
+# 고객센터 프로필
+
+# @app.route('/update-profile-picture2', methods=['POST'])
+# def update_profile_picture2():
+#     data = request.json
+#     photo = data.get('photo')
+#     if photo:
+#         # 여기서 데이터베이스에 프로필 사진 저장
+#         return jsonify(success=True, message="프로필 사진이 변경되었습니다.")
+#     return jsonify(success=False, message="사진 정보가 없습니다.")
 
 @app.route('/change_id', methods=['POST'])
 def change_id():
