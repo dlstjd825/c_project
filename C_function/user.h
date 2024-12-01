@@ -6,10 +6,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define MAX_LINE_LENGTH 1024 // ÆÄÀÏ ÀÐÀ» ¶§ ÃÖ´ë ±ÛÀÚ ¼ö
-#define MAX_USERS 2048 // ÃÖ´ë »ç¿ëÀÚ ¼ö. ÀÓÀÇ·Î ¼³Á¤ÇÔ
+#define MAX_LINE_LENGTH 1024 // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+#define MAX_USERS 2048 // ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½. ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-// »ç¿ëÀÚ Á¤º¸ ´ãÀº ±¸Á¶Ã¼ ¼±¾ð
+// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 typedef struct {
     char id[20];
     char pw[10];
@@ -20,10 +20,10 @@ typedef struct {
     char gender[2];
 } User;
 
-int binary_search(User* users, int left, int right, const char* id); // Á¤º¸¸¦ ºü¸£°Ô Ã£À» ¼ö ÀÖµµ·Ï ÀÌÁøÅ½»ö »ç¿ë
-int load_users(User* users, int max_users); // user.csv¿¡¼­ »ç¿ëÀÚ Á¤º¸ ÀÐÀ½
-void trim_newline(char* str); // °³Çà¹®ÀÚ Á¦°Å
-int compare_users(const void* a, const void* b); // »ç¿ëÀÚ Á¤·Ä¿¡ »ç¿ëÇÒ qsort¸¦ À§ÇÑ ÇÔ¼ö
+int binary_search(User* users, int left, int right, const char* id); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å½ï¿½ï¿½ ï¿½ï¿½ï¿½
+int load_users(User* users, int max_users); // user.csvï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+void trim_newline(char* str); // ï¿½ï¿½ï¿½à¹®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+int compare_users(const void* a, const void* b); // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ qsortï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 
 #endif
 

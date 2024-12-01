@@ -278,24 +278,44 @@ def mypagephonenumber():
 def picture_change():
     return render_template('picture_change.html')
 
-@app.route('/update-profile-picture', methods=['POST'])
-def update_profile_picture():
-    data = request.json
-    photo = data.get('photo')
-    if photo:
-        # 여기서 데이터베이스에 프로필 사진 저장
-        return jsonify(success=True, message="프로필 사진이 변경되었습니다.")
-    return jsonify(success=False, message="사진 정보가 없습니다.")
-# 고객센터 프로필
-
-# @app.route('/update-profile-picture2', methods=['POST'])
-# def update_profile_picture2():
+# @app.route('/update-profile-picture', methods=['POST'])
+# def update_profile_picture():
 #     data = request.json
 #     photo = data.get('photo')
 #     if photo:
 #         # 여기서 데이터베이스에 프로필 사진 저장
 #         return jsonify(success=True, message="프로필 사진이 변경되었습니다.")
 #     return jsonify(success=False, message="사진 정보가 없습니다.")
+
+@app.route('/update-profile-picture', methods=['POST'])
+def update_profile_picture():
+    data = request.json
+    photo = data.get('photo')
+    user_id = session.get('user_id')  # 세션에서 사용자 ID 가져오기
+
+    if not user_id:
+        return jsonify(success=False, message="User not logged in")
+
+    if photo:
+        # 세션에 프로필 사진 경로 저장
+        session[f'{user_id}_profile_photo'] = photo
+        return jsonify(success=True, message="프로필 사진이 성공적으로 변경되었습니다.")
+    
+    return jsonify(success=False, message="사진 정보가 없습니다.")
+
+
+@app.route('/get-profile-picture', methods=['GET'])
+def get_profile_picture():
+    user_id = session.get('user_id')
+
+    if not user_id:
+        return jsonify(success=False, message="User not logged in")
+
+    # 세션에서 프로필 사진 경로 가져오기
+    photo = session.get(f'{user_id}_profile_photo', '/static/mypageprofile.png')  # 기본값 제공
+    return jsonify(success=True, photo=photo)
+
+
 
 @app.route('/change_id', methods=['POST'])
 def change_id():
